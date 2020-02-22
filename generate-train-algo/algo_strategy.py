@@ -82,11 +82,16 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         if game_state.turn_number == 0:
             p = random.random()
-            p = 0.5
+            p = 0.01
+            if p < 0.05:
+                filter_locations = [[0, 13], [1, 13], [2, 12], [3,11], [4,10], [5,9],[6,8], [7,7], [8,6],[9,5],[10,4], [11,3],[12,2],
+                        [15,2],[16,3],[17,4],[18,5],[19,6],[20,7],[21,8],[22,9],[23,10],[24,11],[25,12],[26,13],[27,13]]
+                game_state.attempt_spawn(FILTER, filter_locations)
+                game_state.attempt_spawn(DESTRUCTOR, [[12,3],[13,5],[15,3]])
             if p < 0.1:
                 #######
                 # Start_algo
-                game_state.attemp_spawn(FILTER, [0,13], 1)
+                game_state.attempt_spawn(FILTER, [0,13], 1)
                  # Place destructors that attack enemy units
                 destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
@@ -318,7 +323,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_map = game_state.game_map
 
         # If the turn is less than 5, stall with Scramblers and wait to see enemy's base
-        if game_state.turn_number < 5:
+        if game_state.turn_number < 1:
             self.stall_with_scramblers(game_state)
         else:
             # Now let's analyze the enemy base to see where their defenses are concentrated.

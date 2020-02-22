@@ -82,8 +82,8 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         if game_state.turn_number == 0:
             p = random.random()
-            p = 0.5
-            if p < 0.2:
+            p = 0.45
+            if p < 0.1:
                 #######
                 # Start_algo
                 game_state.attemp_spawn(FILTER, [0,13], 1)
@@ -98,7 +98,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 # upgrade filters so they soak more damage
                 game_state.attempt_upgrade(filter_locations)
                 ####End start_algo 
-            elif p<0.4:
+            elif p<0.3:
                 gamelib.debug_write('BOSE 1')
                 ######
                 # Bose_1 
@@ -112,7 +112,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 # upgrade filters so they soak more damage
                 game_state.attempt_upgrade([[2, 12],[4, 12],[25, 12]])
              
-            elif p<0.6:
+            elif p<0.5:
                 gamelib.debug_write('BOSE 2')
                 ######
                 # Bose_2 
@@ -125,7 +125,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 game_state.attempt_spawn(FILTER, filter_locations)
                 ######End of bose 2
              
-            elif p<0.8:
+            elif p<0.7:
                 gamelib.debug_write('BOSE 3')
                 ######
                 # Bose_3 
@@ -137,7 +137,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12,5],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 8],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
              
-            elif p<0.8:
+            elif p<0.85:
                 ######
                 # Bose_4
                 destructor_locations = [[4, 11], [13, 6], [23, 11]]
@@ -147,6 +147,18 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 2],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 7],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 #####End of bose 4 
+            else:
+                ######
+                # Bose_5
+                destructor_locations = [[4, 11], [14, 6], [23, 11]]
+                # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+                game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+                # Place filters in front of destructors to soak up damage for them
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 7], [10, 7],[11, 7], [12, 7],[13, 7], [14, 7],[15, 5], [16, 4],[17, 5], [18, 6],[19, 7],[20, 8], [21, 9],[22, 10], [24, 12],[25, 13]]
+                game_state.attempt_spawn(FILTER, filter_locations)
+                # upgrade filters so they soak more damage
+                game_state.attempt_upgrade([[2, 13],[14, 7],[15, 5],[16,4],[17, 5], [18, 6],[19, 7],[20, 8]])
+                #####End of bose 5
               
               
         p = random.random()
@@ -215,9 +227,15 @@ class AlgoStrategy(gamelib.AlgoCore):
             attack_id = attack_id - y * 10
             z = attack_id
             if x < 14:
-                game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
+                location = [x, 13-x]
+                path = game_state.find_path_to_edge(location)
+                if path is not None:
+                    game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
             else:
-                game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
+                location = [x, x-14]
+                path = game_state.find_path_to_edge(location)
+                if path is not None:
+                    game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
             gamelib.debug_write('TENSOR_TO_ATTACK x: %s, id: %s, num: %s...'%(x, y, z+1))
 
         while attack_ptr < scores_attack.size(0) or defense_ptr < scores_defense.size(0):
@@ -297,6 +315,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         self.build_defences(game_state)
         # Now build reactive defenses based on where the enemy scored
         self.build_reactive_defense(game_state)
+        game_map = game_state.game_map
 
         # If the turn is less than 5, stall with Scramblers and wait to see enemy's base
         if game_state.turn_number < 5:
@@ -313,14 +332,25 @@ class AlgoStrategy(gamelib.AlgoCore):
                 # Sending more at once is better since attacks can only hit a single ping at a time
                 if game_state.turn_number % 2 == 1:
                     # To simplify we will just check sending them from back left and right
+                    edge_locations = game_map.get_edge_locations(game_map.BOTTOM_LEFT) + game_map.get_edge_locations(game_map.BOTTOM_RIGHT)
                     ping_spawn_location_options = [[13, 0], [14, 0]]
                     best_location = self.least_damage_spawn_location(game_state, ping_spawn_location_options)
                     if best_location is not None:
                         game_state.attempt_spawn(PING, best_location, 1000)
+                    else:
+                        best_location = self.least_damage_spawn_location(game_state, edge_locations)
+                        if best_location is not None:
+                            game_state.attempt_spawn(PING, best_location, 1000)
 
                 # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
                 encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
-                game_state.attempt_spawn(ENCRYPTOR, encryptor_locations)
+                enc_loc = []
+                for location in encryptor_locations:
+                    path = game_state.find_path_to_edge(location)
+                    if path is not None:
+                        enc_loc.append(location)
+                if len(enc_loc) > 0:
+                    game_state.attempt_spawn(ENCRYPTOR, enc_loc)
 
     def build_defences(self, game_state):
         """
@@ -371,7 +401,9 @@ class AlgoStrategy(gamelib.AlgoCore):
             deploy_index = random.randint(0, len(deploy_locations) - 1)
             deploy_location = deploy_locations[deploy_index]
             
-            game_state.attempt_spawn(SCRAMBLER, deploy_location)
+            path = game_state.find_path_to_edge(deploy_location)
+            if path is not None:
+                game_state.attempt_spawn(SCRAMBLER, deploy_location)
             deployed += 1
             if NEED_DUMP and deployed == 10:
                 break
@@ -400,7 +432,10 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         # Now spawn EMPs next to the line
         # By asking attempt_spawn to spawn 1000 units, it will essentially spawn as many as we have resources for
-        game_state.attempt_spawn(EMP, [24, 10], 1000)
+        location = [24, 10]
+        path = game_state.find_path_to_edge(location)
+        if path is not None:
+            game_state.attempt_spawn(EMP, location, 1000)
 
     def least_damage_spawn_location(self, game_state, location_options):
         """

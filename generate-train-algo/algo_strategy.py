@@ -426,12 +426,13 @@ class AlgoStrategy(gamelib.AlgoCore):
             destructor_locations = [[13,5], [14,5]]
         else:
             destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
+        destructor_locations = [[13,5], [14,5]]
         # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
         game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
-        # Place filters in front of destructors to soak up damage for them
-        filter_locations = [[8, 12], [19, 12]]
-        game_state.attempt_spawn(FILTER, filter_locations)
+        ## Place filters in front of destructors to soak up damage for them
+        #filter_locations = [[8, 12], [19, 12]]
+        #game_state.attempt_spawn(FILTER, filter_locations)
         # upgrade filters so they soak more damage
         if not NEED_DUMP:
             game_state.attempt_upgrade(filter_locations)

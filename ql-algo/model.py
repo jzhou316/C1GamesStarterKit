@@ -43,3 +43,6 @@ class QModel(nn.Module):
             aa[idx] = 1
 
         return a
+
+    def param_size(self):
+        return sum([p.numel() for p in self.parameters()])

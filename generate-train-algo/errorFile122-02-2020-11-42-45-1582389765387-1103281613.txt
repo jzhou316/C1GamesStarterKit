@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 1, in <module>
+    import json
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/__init__.py", line 106, in <module>
+    from .decoder import JSONDecoder, JSONDecodeError
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/decoder.py", line 5, in <module>
+    from json import scanner
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/scanner.py", line 13, in <module>
+    (re.VERBOSE | re.MULTILINE | re.DOTALL))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 566, in compile
+    code = _code(p, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 551, in _code
+    _compile(code, p.data, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 134, in _compile
+    _compile(code, av[2], flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 72, in _compile
+    if (flags & SRE_FLAG_IGNORECASE and
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/enum.py", line 804, in __and__
+    return self.__class__(self._value_ & self.__class__(other)._value_)
+KeyboardInterrupt

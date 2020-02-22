@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 15, in <module>
+    import platform
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/platform.py", line 260, in <module>
+    r'[^(]*(?:\((.+)\))?', re.ASCII)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 566, in compile
+    code = _code(p, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 548, in _code
+    _compile_info(code, p, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 486, in _compile_info
+    lo, hi = pattern.getwidth()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 197, in getwidth
+    i, j = av[2].getwidth()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 193, in getwidth
+    i, j = av[-1].getwidth()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 201, in getwidth
+    lo = lo + 1
+KeyboardInterrupt

@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/multiarray.py", line 14, in <module>
+    from . import overrides
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 5, in <module>
+    import textwrap
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/textwrap.py", line 17, in <module>
+    class TextWrapper:
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/textwrap.py", line 105, in TextWrapper
+    wordsep_simple_re = re.compile(r'(%s+)' % whitespace)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 562, in compile
+    p = sre_parse.parse(p, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 855, in parse
+    p = _parse_sub(source, pattern, flags & SRE_FLAG_VERBOSE, 0)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 416, in _parse_sub
+    not nested and not items))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 765, in _parse
+    p = _parse_sub(source, state, sub_verbose, nested + 1)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 416, in _parse_sub
+    not nested and not items))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 610, in _parse
+    if subpattern:
+KeyboardInterrupt

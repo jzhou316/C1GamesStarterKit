@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/multiarray.py", line 14, in <module>
+    from . import overrides
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 9, in <module>
+    from numpy.compat._inspect import getargspec
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/__init__.py", line 14, in <module>
+    from . import py3k
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/py3k.py", line 22, in <module>
+    from pathlib import Path, PurePath
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/pathlib.py", line 14, in <module>
+    from urllib.parse import quote_from_bytes as urlquote_from_bytes
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/urllib/parse.py", line 237, in <module>
+    _DefragResultBase = namedtuple('DefragResult', 'url fragment')
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/collections/__init__.py", line 417, in namedtuple
+    field_names = tuple(field_names),
+KeyboardInterrupt

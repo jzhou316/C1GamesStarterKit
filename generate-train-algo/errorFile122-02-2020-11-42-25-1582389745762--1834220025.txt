@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 2, in <module>
+    import random
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/random.py", line 40, in <module>
+    from warnings import warn as _warn
+  File "<frozen importlib._bootstrap>", line 997, in _handle_fromlist
+KeyboardInterrupt

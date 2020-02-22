@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/py3k.py", line 30, in <module>
+    import pickle5 as pickle
+ModuleNotFoundError: No module named 'pickle5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/multiarray.py", line 14, in <module>
+    from . import overrides
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 9, in <module>
+    from numpy.compat._inspect import getargspec
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/__init__.py", line 14, in <module>
+    from . import py3k
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/py3k.py", line 32, in <module>
+    import pickle
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/pickle.py", line 33, in <module>
+    from struct import pack, unpack
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/struct.py", line 13, in <module>
+    from _struct import *
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 939, in _find_and_load_unlocked
+KeyboardInterrupt

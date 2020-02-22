@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 78, in <module>
+    from . import numeric
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 658, in _load_unlocked
+  File "<frozen importlib._bootstrap>", line 577, in module_from_spec
+  File "<frozen importlib._bootstrap>", line 556, in _init_module_attrs
+  File "<frozen importlib._bootstrap>", line 409, in cached
+  File "<frozen importlib._bootstrap_external>", line 364, in _get_cached
+  File "<frozen importlib._bootstrap_external>", line 290, in cache_from_source
+KeyboardInterrupt

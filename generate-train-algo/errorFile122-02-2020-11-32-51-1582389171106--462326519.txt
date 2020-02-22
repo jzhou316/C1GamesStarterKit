@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 15, in <module>
+    import platform
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/platform.py", line 116, in <module>
+    import sys, os, re, subprocess
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/subprocess.py", line 138, in <module>
+    import selectors
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/selectors.py", line 59, in <module>
+    class _SelectorMapping(Mapping):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/abc.py", line 139, in __new__
+    for name in getattr(base, "__abstractmethods__", set()):
+KeyboardInterrupt

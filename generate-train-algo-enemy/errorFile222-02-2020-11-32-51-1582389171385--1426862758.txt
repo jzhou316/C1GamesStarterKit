@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/algocore.py", line 1, in <module>
+    import json
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/__init__.py", line 106, in <module>
+    from .decoder import JSONDecoder, JSONDecodeError
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/decoder.py", line 3, in <module>
+    import re
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 123, in <module>
+    import sre_compile
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 14, in <module>
+    import sre_parse
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_parse.py", line 15, in <module>
+    from sre_constants import *
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 771, in get_code
+  File "<frozen importlib._bootstrap_external>", line 441, in _validate_bytecode_header
+KeyboardInterrupt

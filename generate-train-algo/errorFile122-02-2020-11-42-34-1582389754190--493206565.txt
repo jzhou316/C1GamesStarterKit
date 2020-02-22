@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 323, in <module>
+    import torch.utils.data
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/utils/data/__init__.py", line 3, in <module>
+    from .dataset import Dataset, IterableDataset, TensorDataset, ConcatDataset, ChainDataset, Subset, random_split
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/utils/data/dataset.py", line 216, in <module>
+    class ChainDataset(IterableDataset):
+KeyboardInterrupt

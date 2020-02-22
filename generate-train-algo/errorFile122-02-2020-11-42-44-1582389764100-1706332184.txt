@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 1, in <module>
+    import json
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/__init__.py", line 107, in <module>
+    from .encoder import JSONEncoder
+  File "<frozen importlib._bootstrap>", line 968, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 147, in __enter__
+KeyboardInterrupt

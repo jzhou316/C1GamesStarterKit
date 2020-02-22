@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 17, in <module>
+    from ._utils_internal import get_file_path, prepare_multiprocessing_environment
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/_utils_internal.py", line 4, in <module>
+    import inspect
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/inspect.py", line 2385, in <module>
+    class _ParameterKind(enum.IntEnum):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/enum.py", line 154, in __new__
+    enum_class._member_names_ = []               # names in definition order
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/enum.py", line 359, in __setattr__
+    member_map = cls.__dict__.get('_member_map_', {})
+KeyboardInterrupt

@@ -1,0 +1,26 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 541, in <module>
+    main()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 523, in main
+    known_paths = addsitepackages(known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 320, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 207, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 168, in addpackage
+    exec(line)
+  File "<string>", line 1, in <module>
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/importlib/util.py", line 2, in <module>
+    from . import abc
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/importlib/abc.py", line 76, in <module>
+    machinery.PathFinder, machinery.WindowsRegistryFinder)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/importlib/abc.py", line 26, in _register
+    abstract_cls.register(frozen_cls)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/abc.py", line 158, in register
+    if issubclass(subclass, cls):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/abc.py", line 222, in __subclasscheck__
+    for rcls in cls._abc_registry:
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/_weakrefset.py", line 65, in __iter__
+    yield item
+KeyboardInterrupt

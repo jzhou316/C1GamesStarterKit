@@ -1,0 +1,13 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 541, in <module>
+    main()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 517, in main
+    abs_paths()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 110, in abs_paths
+    m.__cached__ = os.path.abspath(m.__cached__)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/posixpath.py", line 378, in abspath
+    return normpath(path)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/posixpath.py", line 352, in normpath
+    comps = path.split(sep)
+KeyboardInterrupt

@@ -1,0 +1,26 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 541, in <module>
+    main()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 523, in main
+    known_paths = addsitepackages(known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 320, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 207, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 168, in addpackage
+    exec(line)
+  File "<string>", line 1, in <module>
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/types.py", line 171, in <module>
+    import functools as _functools
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/functools.py", line 21, in <module>
+    from collections import namedtuple
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/collections/__init__.py", line 26, in <module>
+    from operator import itemgetter as _itemgetter, eq as _eq
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt

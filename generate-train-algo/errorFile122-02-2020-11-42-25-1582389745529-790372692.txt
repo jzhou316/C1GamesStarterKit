@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 2, in <module>
+    import random
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/random.py", line 71, in <module>
+    class Random(_random.Random):
+KeyboardInterrupt

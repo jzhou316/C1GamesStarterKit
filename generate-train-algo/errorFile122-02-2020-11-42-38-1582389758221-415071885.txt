@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 82, in <module>
+    from . import defchararray as char
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/defchararray.py", line 188, in <module>
+    @array_function_dispatch(_binary_op_dispatcher)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 168, in decorator
+    verify_matching_signatures(implementation, dispatcher)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 74, in verify_matching_signatures
+    implementation_spec = ArgSpec(*getargspec(implementation))
+  File "<string>", line 14, in __new__
+KeyboardInterrupt

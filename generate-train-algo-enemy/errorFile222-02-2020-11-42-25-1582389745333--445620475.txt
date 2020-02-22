@@ -1,0 +1,27 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 541, in <module>
+    main()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 522, in main
+    known_paths = addusersitepackages(known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 282, in addusersitepackages
+    user_site = getusersitepackages()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 258, in getusersitepackages
+    user_base = getuserbase() # this will also set USER_BASE
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 248, in getuserbase
+    USER_BASE = get_config_var('userbase')
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 609, in get_config_var
+    return get_config_vars().get(name)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 582, in get_config_vars
+    srcdir = os.path.dirname(get_makefile_filename())
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 342, in get_makefile_filename
+    return os.path.join(get_path('stdlib'), config_dir_name, 'Makefile')
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 520, in get_path
+    return get_paths(scheme, vars, expand)[name]
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 510, in get_paths
+    return _expand_vars(scheme, vars)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 164, in _expand_vars
+    _extend_dict(vars, get_config_vars())
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sysconfig.py", line 155, in _extend_dict
+    if key in target_keys:
+KeyboardInterrupt

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 316, in <module>
+    import torch.distributions
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/distributions/__init__.py", line 92, in <module>
+    from .kl import kl_divergence, register_kl
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/distributions/kl.py", line 26, in <module>
+    from .one_hot_categorical import OneHotCategorical
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt

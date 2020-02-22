@@ -1,0 +1,18 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 42, in _get_exports_list
+    return list(module.__all__)
+AttributeError: module 'posix' has no attribute '__all__'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 73, in <module>
+    import os
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 65, in <module>
+    __all__.extend(_get_exports_list(posix))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 44, in _get_exports_list
+    return [n for n in dir(module) if n[0] != '_']
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 44, in <listcomp>
+    return [n for n in dir(module) if n[0] != '_']
+KeyboardInterrupt

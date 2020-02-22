@@ -1,0 +1,7 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 73, in <module>
+    import os
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 51, in <module>
+    from posix import *
+KeyboardInterrupt

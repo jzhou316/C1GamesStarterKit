@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 145, in <module>
+    from . import lib
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/lib/__init__.py", line 40, in <module>
+    from .financial import *
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/lib/financial.py", line 16, in <module>
+    from decimal import Decimal
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/decimal.py", line 3, in <module>
+    from _decimal import *
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/collections/__init__.py", line 429, in namedtuple
+    exec(class_definition, namespace)
+  File "<string>", line 1, in <module>
+KeyboardInterrupt

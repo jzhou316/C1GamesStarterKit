@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 1, in <module>
+    import json
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/__init__.py", line 106, in <module>
+    from .decoder import JSONDecoder, JSONDecodeError
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/decoder.py", line 5, in <module>
+    from json import scanner
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/json/scanner.py", line 5, in <module>
+    from _json import make_scanner as c_make_scanner
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 951, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 894, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1157, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1128, in _get_spec
+KeyboardInterrupt

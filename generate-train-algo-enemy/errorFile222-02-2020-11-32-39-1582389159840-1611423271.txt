@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/algocore.py", line 4, in <module>
+    from .game_state import GameState
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/game_state.py", line 5, in <module>
+    from .navigation import ShortestPathFinder
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/navigation.py", line 4, in <module>
+    import queue
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/queue.py", line 4, in <module>
+    import threading
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/threading.py", line 7, in <module>
+    from traceback import format_exc as _format_exc
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/traceback.py", line 5, in <module>
+    import linecache
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/linecache.py", line 11, in <module>
+    import tokenize
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/tokenize.py", line 38, in <module>
+    blank_re = re.compile(br'^[ \t\f]*(?:[#\r\n]|$)', re.ASCII)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 566, in compile
+    code = _code(p, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 551, in _code
+    _compile(code, p.data, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 146, in _compile
+    _compile(code, p, (flags | add_flags) & ~del_flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 187, in _compile
+    _compile(code, av, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 108, in _compile
+    _compile_charset(av, flags, code, fixup, fixes)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 226, in _compile_charset
+    for op, av in _optimize_charset(charset, fixup, fixes):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 305, in _optimize_charset
+    if len(runs) >= 2:
+KeyboardInterrupt

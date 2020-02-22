@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 82, in <module>
+    from . import defchararray as char
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/defchararray.py", line 1640, in <module>
+    def translate(a, table, deletechars=None):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 168, in decorator
+    verify_matching_signatures(implementation, dispatcher)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 75, in verify_matching_signatures
+    dispatcher_spec = ArgSpec(*getargspec(dispatcher))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/_inspect.py", line 112, in getargspec
+    args, varargs, varkw = getargs(func.__code__)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/_inspect.py", line 76, in getargs
+    if not iscode(co):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/_inspect.py", line 61, in iscode
+    return isinstance(object, types.CodeType)
+KeyboardInterrupt

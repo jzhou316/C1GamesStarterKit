@@ -1,0 +1,21 @@
+Random seed: 8999505188434418858
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+number of parameters: 2185001
+---------------------------------------------------loading model from /home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/model.pt
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 408, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 65, in start
+    self.on_game_start(parsed_config)
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 63, in on_game_start
+    self.model.load(os.path.join(current_dir, 'model.pt'))
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/model.py", line 20, in load
+    self.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/serialization.py", line 525, in load
+    with _open_file_like(f, 'rb') as opened_file:
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/serialization.py", line 212, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/serialization.py", line 193, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/model.pt'

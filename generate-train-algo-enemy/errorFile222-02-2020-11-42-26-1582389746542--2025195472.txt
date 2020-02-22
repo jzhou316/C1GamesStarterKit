@@ -1,0 +1,17 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 73, in <module>
+    import os
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 652, in <module>
+    from _collections_abc import MutableMapping
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/_collections_abc.py", line 240, in <module>
+    AsyncGenerator.register(async_generator)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/abc.py", line 158, in register
+    if issubclass(subclass, cls):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/abc.py", line 209, in __subclasscheck__
+    ok = cls.__subclasshook__(subclass)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/_collections_abc.py", line 236, in __subclasshook__
+    'asend', 'athrow', 'aclose')
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/_collections_abc.py", line 73, in _check_methods
+    mro = C.__mro__
+KeyboardInterrupt

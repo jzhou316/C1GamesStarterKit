@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/py3k.py", line 30, in <module>
+    import pickle5 as pickle
+ModuleNotFoundError: No module named 'pickle5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/multiarray.py", line 14, in <module>
+    from . import overrides
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 9, in <module>
+    from numpy.compat._inspect import getargspec
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/__init__.py", line 14, in <module>
+    from . import py3k
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/compat/py3k.py", line 32, in <module>
+    import pickle
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/pickle.py", line 181, in <module>
+    __all__.extend([x for x in dir() if re.match("[A-Z][A-Z0-9_]+$", x)])
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/pickle.py", line 181, in <listcomp>
+    __all__.extend([x for x in dir() if re.match("[A-Z][A-Z0-9_]+$", x)])
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 172, in match
+    return _compile(pattern, flags).match(string)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 579, in compile
+    groupindex, indexgroup
+KeyboardInterrupt

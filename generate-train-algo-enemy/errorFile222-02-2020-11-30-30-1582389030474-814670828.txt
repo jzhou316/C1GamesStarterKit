@@ -1,0 +1,19 @@
+Random seed: 1960610531377572846
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+number of parameters: 2185001
+---------------------------------------------------loading model from /home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/model.pt
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 408, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/gamelib/algocore.py", line 69, in start
+    self.on_game_start(parsed_config)
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 63, in on_game_start
+    self.model.load(os.path.join(current_dir, 'model.pt'))
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/model.py", line 20, in load
+    self.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/serialization.py", line 529, in load
+    return _legacy_load(opened_file, map_location, pickle_module, **pickle_load_args)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/serialization.py", line 709, in _legacy_load
+    deserialized_objects[key]._set_from_file(f, offset, f_should_read_directly)
+RuntimeError: storage has wrong size: expected -5855877091380838888 got 1

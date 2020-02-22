@@ -1,0 +1,4 @@
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 100
+    elif p<0.4:
+              ^
+IndentationError: unindent does not match any outer indentation level

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 15, in <module>
+    import platform
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/platform.py", line 1100, in <module>
+    r' on (.NET [\d\.]+)', re.ASCII)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 566, in compile
+    code = _code(p, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 551, in _code
+    _compile(code, p.data, flags)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/sre_compile.py", line 81, in _compile
+    if flags & SRE_FLAG_IGNORECASE:
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/enum.py", line 802, in __and__
+    if not isinstance(other, (self.__class__, int)):
+KeyboardInterrupt

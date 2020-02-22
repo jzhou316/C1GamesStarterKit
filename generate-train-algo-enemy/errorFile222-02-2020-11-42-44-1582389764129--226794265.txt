@@ -1,0 +1,11 @@
+Fatal Python error: Py_Initialize: can't initialize sys standard streams
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/io.py", line 52, in <module>
+    import abc
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/abc.py", line 6, in <module>
+    from _weakrefset import WeakSet
+  File "<frozen importlib._bootstrap>", line 968, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 149, in __enter__
+  File "<frozen importlib._bootstrap>", line 84, in acquire
+KeyboardInterrupt
+generate-train-algo-enemy/run.sh: line 4: 24555 Aborted                 (core dumped) ${PYTHON_CMD:-python3} -u "$DIR/algo_strategy.py"

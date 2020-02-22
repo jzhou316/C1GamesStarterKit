@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 3, in <module>
+    from .game_state import GameState
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/game_state.py", line 5, in <module>
+    from .navigation import ShortestPathFinder
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/navigation.py", line 4, in <module>
+    import queue
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/queue.py", line 4, in <module>
+    import threading
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/threading.py", line 7, in <module>
+    from traceback import format_exc as _format_exc
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/traceback.py", line 5, in <module>
+    import linecache
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/linecache.py", line 11, in <module>
+    import tokenize
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/tokenize.py", line 35, in <module>
+    from token import *
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/token.py", line 75, in <module>
+    for name, value in globals().items()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/token.py", line 76, in <dictcomp>
+    if isinstance(value, int) and not name.startswith('_')}
+KeyboardInterrupt

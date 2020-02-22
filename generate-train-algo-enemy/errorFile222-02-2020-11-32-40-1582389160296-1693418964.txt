@@ -1,0 +1,11 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 73, in <module>
+    import os
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/os.py", line 26, in <module>
+    import sys, errno
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap>", line 321, in __exit__
+KeyboardInterrupt

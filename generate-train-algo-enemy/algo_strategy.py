@@ -59,6 +59,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         a_def_dim = 1568  # 28 * 14 * 3
         # total 4368, #params 4368 * 500 = 2,184,000
         hid_dim = 500
+        self.forbidden = []
         self.model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
         gamelib.debug_write('---------------------------------------------------loading model from %s/model.pt'%current_dir)
         #self.model.load(os.path.join(current_dir, 'model.pt'))
@@ -80,13 +81,18 @@ class AlgoStrategy(gamelib.AlgoCore):
         
         state = self.game_state_to_tensor(game_state)
 
+        p = random.random()
         if game_state.turn_number == 0:
-            p = random.random()
-            p = 0.45
+            if p < 0.05:
+                filter_locations = [[0, 13], [1, 13], [2, 12], [3,11], [4,10], [5,9],[6,8], [7,7], [8,6],[9,5],[10,4], [11,3],[12,2],
+                        [15,2],[16,3],[17,4],[18,5],[19,6],[20,7],[21,8],[22,9],[23,10],[24,11],[25,12],[26,13],[27,13]]
+                self.forbidden = [[13,4], [13,3], [13,2], [13,1], [13,0], [14,4], [14,3], [14,2],[14,1], [14,0]]
+                game_state.attempt_spawn(FILTER, filter_locations)
+                game_state.attempt_spawn(DESTRUCTOR, [[12,3],[13,5],[15,3]])
             if p < 0.1:
                 #######
                 # Start_algo
-                game_state.attemp_spawn(FILTER, [0,13], 1)
+                game_state.attempt_spawn(FILTER, [0,13], 1)
                  # Place destructors that attack enemy units
                 destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
@@ -121,8 +127,9 @@ class AlgoStrategy(gamelib.AlgoCore):
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
                 # Place filters in front of destructors to soak up damage for them
-                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 5],[13, 7], [14, 7],[15, 7], [16, 7],[17,7], [18, 7],[19, 7],[20, 8], [19, 7],[18, 6], [24, 12],[25, 13]]
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 5],[13, 7], [14, 7],[15, 7], [16, 7],[17,7], [18, 7],[19, 7],[20, 8], [21, 9],[22, 10], [24,12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
+                game_state.attempt_upgrade([[13, 7],[12, 5],[10, 5]])
                 ######End of bose 2
              
             elif p<0.7:
@@ -160,7 +167,15 @@ class AlgoStrategy(gamelib.AlgoCore):
                 game_state.attempt_upgrade([[2, 13],[14, 7],[15, 5],[16,4],[17, 5], [18, 6],[19, 7],[20, 8]])
                 #####End of bose 5
               
-              
+        if p < 0.5:      
+            destructor_locations = [[4, 11], [13, 6], [23, 11]]
+            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+            game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+        
+            # Place filters in front of destructors to soak up damage for them
+            filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 5],[13, 7], [14, 7],[15, 7], [16, 7],[17,7], [18, 7],[19, 7],[20, 8], [21, 9],[22, 10], [24,12],[25, 13]]
+            game_state.attempt_spawn(FILTER, filter_locations)
+            game_state.attempt_upgrade([[13, 7],[12, 5],[10, 5]])
         p = random.random()
         if p < 0.8:
             gamelib.debug_write('Using BASELINE Policy')
@@ -201,16 +216,24 @@ class AlgoStrategy(gamelib.AlgoCore):
         scores_attack = scores_attack.view(-1)
         scores_defense = scores_defense.view(-1)
 
+        scores_defense = scores_defense + scores_attack.max() - scores_defense.min()
+
         sorted_attack, attack_ids = torch.sort(scores_attack, 0, descending=True)
         sorted_defense, defense_ids = torch.sort(scores_defense, 0, descending=True)
 
         attack_ptr, defense_ptr = 0, 0
+        game_map = game_state.game_map
+        edge_locations = game_map.get_edge_locations(game_map.BOTTOM_LEFT) + game_map.get_edge_locations(game_map.BOTTOM_RIGHT)
 
         def attempt_defense(defense_id):
             defense_id = defense_id.item()
             x = int( math.floor(defense_id / (4*14)))
             defense_id = defense_id - x * (4*14)
             y = int(math.floor(defense_id / (4)))
+            if (x,y) in edge_locations or [x,y] in edge_locations:
+                return
+            if [x,y] in self.forbidden:
+                return
             defense_id = defense_id - y * 4
             z = defense_id
             if z == 3:
@@ -318,7 +341,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_map = game_state.game_map
 
         # If the turn is less than 5, stall with Scramblers and wait to see enemy's base
-        if game_state.turn_number < 5:
+        if game_state.turn_number < 1:
             self.stall_with_scramblers(game_state)
         else:
             # Now let's analyze the enemy base to see where their defenses are concentrated.
@@ -327,6 +350,17 @@ class AlgoStrategy(gamelib.AlgoCore):
                 self.emp_line_strategy(game_state)
             else:
                 # They don't have many units in the front so lets figure out their least defended area and send Pings there.
+
+
+                # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
+                encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
+                enc_loc = []
+                for location in encryptor_locations:
+                    path = game_state.find_path_to_edge(location)
+                    if path is not None and location not in self.forbidden:
+                        enc_loc.append(location)
+                if len(enc_loc) > 0:
+                    game_state.attempt_spawn(ENCRYPTOR, enc_loc)
 
                 # Only spawn Ping's every other turn
                 # Sending more at once is better since attacks can only hit a single ping at a time
@@ -342,16 +376,6 @@ class AlgoStrategy(gamelib.AlgoCore):
                         if best_location is not None:
                             game_state.attempt_spawn(PING, best_location, 1000)
 
-                # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
-                encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
-                enc_loc = []
-                for location in encryptor_locations:
-                    path = game_state.find_path_to_edge(location)
-                    if path is not None:
-                        enc_loc.append(location)
-                if len(enc_loc) > 0:
-                    game_state.attempt_spawn(ENCRYPTOR, enc_loc)
-
     def build_defences(self, game_state):
         """
         Build basic defenses using hardcoded locations.
@@ -361,7 +385,10 @@ class AlgoStrategy(gamelib.AlgoCore):
         # More community tools available at: https://terminal.c1games.com/rules#Download
 
         # Place destructors that attack enemy units
-        destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
+        if len(self.forbidden)>0:
+            destructor_locations = [[13,5], [14,5]]
+        else:
+            destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
         # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
         game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
@@ -380,7 +407,9 @@ class AlgoStrategy(gamelib.AlgoCore):
         """
         for location in self.scored_on_locations:
             # Build destructor one space above so that it doesn't block our own edge spawn locations
-            build_location = [location[0], location[1]+1]
+            build_location = [location[0], min(location[1]+1, 13)]
+            if build_location in self.forbidden:
+                continue
             game_state.attempt_spawn(DESTRUCTOR, build_location)
 
     def stall_with_scramblers(self, game_state):

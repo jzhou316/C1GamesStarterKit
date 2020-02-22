@@ -81,9 +81,9 @@ class AlgoStrategy(gamelib.AlgoCore):
         
         state = self.game_state_to_tensor(game_state)
 
+        p = random.random()
+        p = 0.4
         if game_state.turn_number == 0:
-            p = random.random()
-            p = 0.4
             if p < 0.05:
                 filter_locations = [[0, 13], [1, 13], [2, 12], [3,11], [4,10], [5,9],[6,8], [7,7], [8,6],[9,5],[10,4], [11,3],[12,2],
                         [15,2],[16,3],[17,4],[18,5],[19,6],[20,7],[21,8],[22,9],[23,10],[24,11],[25,12],[26,13],[27,13]]

@@ -4,12 +4,13 @@ import torch.nn as nn
 
 class QModel(nn.Module):
     """model for Q-learning for game action prediction."""
-    def __init__(self, s_dim, a_dim, hid_dim):
+    def __init__(self, s_dim, a_att_dim, a_def_dim, hid_dim):
         super().__init__()
         self.s_dim = s_dim
-        self.a_dim = a_dim
+        self.a_att_dim = a_att_dim
+        self.a_def_dim = a_def_dim
         self.hid_dim = hid_dim
-        self.mlp = nn.Sequential(nn.Linear(s_dim + a_dim, hid_dim),
+        self.mlp = nn.Sequential(nn.Linear(s_dim + a_att_dim + a_def_dim, hid_dim),
                                  nn.Relu(),
                                  nn.Linear(hid_dim, 1))
 
@@ -21,7 +22,7 @@ class QModel(nn.Module):
         :return:
         the Q value
         """
-        q = self.mlp(torch.cat([s, a], dim=0))
+        q = self.mlp(torch.cat([s, *a], dim=0))
         return q
 
     def infer_act(self, s):
@@ -31,11 +32,17 @@ class QModel(nn.Module):
         :return:
         action, represented by a tensor
         """
-        a = torch.zeros(self.a_dim)
+        a_att = torch.zeros(self.a_att_dim)
+        a_def = torch.zeros(self.a_def_dim)
+        a = [a_att, a_def]
         q = self.q_val(s, a)
-        grad = torch.autograd.grad(q, a)[0]
-        grad_sorted, grad_idx = torch.sort(grad)
-        idx = grad_idx[grad_sorted > 0]
-        a[idx] = 1
+        a_grads = torch.autograd.grad(q, [a_att, a_def])[0]
+        for aa, grad in zip(a, a_grads):
+            grad_sorted, grad_idx = torch.sort(grad)
+            idx = grad_idx[grad_sorted > 0]
+            aa[idx] = 1
 
         return a
+
+    def param_size(self):
+        return sum([p.numel() for p in self.parameters()])

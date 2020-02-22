@@ -11,7 +11,7 @@ import os
 
 global current_dir 
 #current_dir = os.path.dirname(__file__)
-current_dir = '../../../saved_models'
+current_dir = '../../saved_models'
 
 """
 Most of the algo code you write will be in this file unless you create new

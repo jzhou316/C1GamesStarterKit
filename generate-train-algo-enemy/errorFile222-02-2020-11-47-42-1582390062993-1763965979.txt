@@ -1,0 +1,19 @@
+Failed to import the site module
+Traceback (most recent call last):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 541, in <module>
+    main()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 523, in main
+    known_paths = addsitepackages(known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 320, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 207, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site.py", line 168, in addpackage
+    exec(line)
+  File "<string>", line 1, in <module>
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/importlib/__init__.py", line 58, in <module>
+    import warnings
+  File "<frozen importlib._bootstrap>", line 968, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 148, in __enter__
+  File "<frozen importlib._bootstrap>", line 187, in _get_module_lock
+KeyboardInterrupt

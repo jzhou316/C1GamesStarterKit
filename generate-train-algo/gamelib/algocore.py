@@ -1,7 +1,10 @@
 import json
+import os
 
 from .game_state import GameState
 from .util import get_command, debug_write, BANNER_TEXT, send_command
+
+data_dir = '../../data'
 
 class AlgoCore(object):
     """
@@ -86,7 +89,7 @@ class AlgoCore(object):
                         import glob
                         filenames = glob.glob('run_*.pkl')
                         run_id = len(filenames)
-                        pickle.dump(self.to_dump, open('run_%s.pkl'%run_id, 'wb'))
+                        pickle.dump(self.to_dump, open(os.path.join(data_dir, 'run_%s.pkl'%run_id), 'wb'))
                     debug_write("Got end state, game over. Stopping algo.")
                     break
                 else:

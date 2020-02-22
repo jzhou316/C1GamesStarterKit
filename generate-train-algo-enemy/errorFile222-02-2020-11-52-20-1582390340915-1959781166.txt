@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 267, in <module>
+    _C._initExtension(manager_path())
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/cuda/__init__.py", line 546, in <module>
+    from . import nvtx
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/cuda/nvtx.py", line 2, in <module>
+    import glob
+KeyboardInterrupt

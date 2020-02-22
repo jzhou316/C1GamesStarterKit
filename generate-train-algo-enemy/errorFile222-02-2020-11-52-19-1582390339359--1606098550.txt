@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo-enemy/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 151, in <module>
+    from . import polynomial
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/polynomial/__init__.py", line 18, in <module>
+    from .polynomial import Polynomial
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/polynomial/polynomial.py", line 72, in <module>
+    from . import polyutils as pu
+  File "<frozen importlib._bootstrap>", line 1021, in _handle_fromlist
+KeyboardInterrupt

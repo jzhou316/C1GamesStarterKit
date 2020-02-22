@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 228, in <module>
+    from .testing import Tester
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/testing/__init__.py", line 10, in <module>
+    from unittest import TestCase
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/unittest/__init__.py", line 59, in <module>
+    from .case import (TestCase, FunctionTestCase, SkipTest, skip, skipIf,
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/unittest/case.py", line 25, in <module>
+    class SkipTest(Exception):
+KeyboardInterrupt

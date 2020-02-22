@@ -4,12 +4,14 @@ import random
 import torch
 import torch.nn as nn
 from copy import deepcopy
-from model import QModel
+import sys
+sys.path.insert(0, './')
+from generate-train-algo.model import QModel
 
 # ============================ parameters =======================
-s_dim = 2352  # 28 * 28 * 3
+s_dim = 3136  # 28 * 28 * 4
 a_att_dim = 840  # 28 * 3 * 10
-a_def_dim = 1176  # 28 * 14 * 3
+a_def_dim = 1568  # 28 * 14 * 4
 # total 4368, #params 4368 * 500 = 2,184,000
 hid_dim = 500
 

@@ -83,7 +83,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         if game_state.turn_number == 0:
             p = random.random()
             p = 0.5
-            if p < 0.2:
+            if p < 0.1:
                 #######
                 # Start_algo
                 game_state.attemp_spawn(FILTER, [0,13], 1)
@@ -98,7 +98,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 # upgrade filters so they soak more damage
                 game_state.attempt_upgrade(filter_locations)
                 ####End start_algo 
-            elif p<0.4:
+            elif p<0.3:
                 gamelib.debug_write('BOSE 1')
                 ######
                 # Bose_1 
@@ -112,7 +112,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 # upgrade filters so they soak more damage
                 game_state.attempt_upgrade([[2, 12],[4, 12],[25, 12]])
              
-            elif p<0.6:
+            elif p<0.5:
                 gamelib.debug_write('BOSE 2')
                 ######
                 # Bose_2 
@@ -125,7 +125,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 game_state.attempt_spawn(FILTER, filter_locations)
                 ######End of bose 2
              
-            elif p<0.8:
+            elif p<0.7:
                 gamelib.debug_write('BOSE 3')
                 ######
                 # Bose_3 
@@ -137,7 +137,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12,5],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 8],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
              
-            elif p<0.8:
+            elif p<0.85:
                 ######
                 # Bose_4
                 destructor_locations = [[4, 11], [13, 6], [23, 11]]
@@ -147,6 +147,18 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 2],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 7],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 #####End of bose 4 
+            else:
+                ######
+                # Bose_5
+                destructor_locations = [[4, 11], [14, 6], [23, 11]]
+                # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+                game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+                # Place filters in front of destructors to soak up damage for them
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 7], [10, 7],[11, 7], [12, 7],[13, 7], [14, 7],[15, 5], [16, 4],[17, 5], [18, 6],[19, 7],[20, 8], [21, 9],[22, 10], [24, 12],[25, 13]]
+                game_state.attempt_spawn(FILTER, filter_locations)
+                # upgrade filters so they soak more damage
+                game_state.attempt_upgrade([[2, 13],[14, 7],[15, 5],[16,4],[17, 5], [18, 6],[19, 7],[20, 8]])
+                #####End of bose 5
               
               
         p = random.random()

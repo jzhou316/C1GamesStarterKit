@@ -83,7 +83,7 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         if game_state.turn_number == 0:
             p = random.random()
-            p = 0.01
+            p = 0.4
             if p < 0.05:
                 filter_locations = [[0, 13], [1, 13], [2, 12], [3,11], [4,10], [5,9],[6,8], [7,7], [8,6],[9,5],[10,4], [11,3],[12,2],
                         [15,2],[16,3],[17,4],[18,5],[19,6],[20,7],[21,8],[22,9],[23,10],[24,11],[25,12],[26,13],[27,13]]
@@ -207,6 +207,8 @@ class AlgoStrategy(gamelib.AlgoCore):
                    2: DESTRUCTOR}
         scores_attack = scores_attack.view(-1)
         scores_defense = scores_defense.view(-1)
+
+        scores_defense = scores_defense + scores_attack.max() - scores_defense.min()
 
         sorted_attack, attack_ids = torch.sort(scores_attack, 0, descending=True)
         sorted_defense, defense_ids = torch.sort(scores_defense, 0, descending=True)
@@ -341,6 +343,17 @@ class AlgoStrategy(gamelib.AlgoCore):
             else:
                 # They don't have many units in the front so lets figure out their least defended area and send Pings there.
 
+
+                # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
+                encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
+                enc_loc = []
+                for location in encryptor_locations:
+                    path = game_state.find_path_to_edge(location)
+                    if path is not None and location not in self.forbidden:
+                        enc_loc.append(location)
+                if len(enc_loc) > 0:
+                    game_state.attempt_spawn(ENCRYPTOR, enc_loc)
+
                 # Only spawn Ping's every other turn
                 # Sending more at once is better since attacks can only hit a single ping at a time
                 if game_state.turn_number % 2 == 1:
@@ -354,16 +367,6 @@ class AlgoStrategy(gamelib.AlgoCore):
                         best_location = self.least_damage_spawn_location(game_state, edge_locations)
                         if best_location is not None:
                             game_state.attempt_spawn(PING, best_location, 1000)
-
-                # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
-                encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
-                enc_loc = []
-                for location in encryptor_locations:
-                    path = game_state.find_path_to_edge(location)
-                    if path is not None and location not in self.forbidden:
-                        enc_loc.append(location)
-                if len(enc_loc) > 0:
-                    game_state.attempt_spawn(ENCRYPTOR, enc_loc)
 
     def build_defences(self, game_state):
         """
@@ -396,7 +399,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         """
         for location in self.scored_on_locations:
             # Build destructor one space above so that it doesn't block our own edge spawn locations
-            build_location = [location[0], location[1]+1]
+            build_location = [location[0], min(location[1]+1, 13)]
             if build_location in self.forbidden:
                 continue
             game_state.attempt_spawn(DESTRUCTOR, build_location)

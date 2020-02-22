@@ -178,7 +178,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             game_state.attempt_spawn(FILTER, filter_locations)
             game_state.attempt_upgrade([[13, 7],[12, 5],[10, 5]])
         p = random.random()
-        if p < 0.8:
+        if p < 1:
             gamelib.debug_write('Using BASELINE Policy')
             self.starter_strategy(game_state)
         else:

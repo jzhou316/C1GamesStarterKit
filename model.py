@@ -49,10 +49,11 @@ class QModel(nn.Module):
         :return:
         action, represented by a tensor
         """
-        if s.dim() > 1:
-            s = s.reshape(-1)
-        a_att = torch.zeros(self.a_att_dim, requires_grad=True, device=s.device)
-        a_def = torch.zeros(self.a_def_dim, requires_grad=True, device=s.device)
+        # if s.dim() > 1:
+        #    s = s.reshape(-1)
+        s = s.reshape(1, -1)
+        a_att = torch.zeros(1, self.a_att_dim, requires_grad=True, device=s.device)
+        a_def = torch.zeros(1, self.a_def_dim, requires_grad=True, device=s.device)
         a = [a_att, a_def]
         q = self.q_val(s, a_att, a_def)
         a_grads = torch.autograd.grad(q, [a_att, a_def])

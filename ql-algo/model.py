@@ -11,10 +11,10 @@ class QModel(nn.Module):
         self.a_def_dim = a_def_dim
         self.hid_dim = hid_dim
         self.mlp = nn.Sequential(nn.Linear(s_dim + a_att_dim + a_def_dim, hid_dim),
-                                 nn.Relu(),
+                                 nn.ReLU(),
                                  nn.Linear(hid_dim, 1))
 
-    def q_val(self, s, a):
+    def q_val(self, s, a_att, a_def):
         """
         :param self:
         :param s: current state of the map, represented by a tensor
@@ -22,7 +22,13 @@ class QModel(nn.Module):
         :return:
         the Q value
         """
-        q = self.mlp(torch.cat([s, *a], dim=0))
+        if s.dim() > 1:
+            s = s.reshape(-1)
+        if a_att.dim() > 1:
+            a_att = a_att.reshape(-1)
+        if a_def.dim() > 1:
+            a_def = a_def.reshape(-1)
+        q = self.mlp(torch.cat([s, a_att, a_def], dim=0))
         return q
 
     def infer_act(self, s):
@@ -32,6 +38,8 @@ class QModel(nn.Module):
         :return:
         action, represented by a tensor
         """
+        if s.dim() > 1:
+            s = s.reshape(-1)
         a_att = torch.zeros(self.a_att_dim)
         a_def = torch.zeros(self.a_def_dim)
         a = [a_att, a_def]

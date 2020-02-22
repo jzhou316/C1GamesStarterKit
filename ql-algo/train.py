@@ -1,5 +1,6 @@
 import os
 import pickle
+import random
 import torch
 import torch.nn as nn
 
@@ -12,24 +13,26 @@ a_def_dim = 1176  # 28 * 14 * 3
 # total 4368, #params 4368 * 500 = 2,184,000
 hid_dim = 500
 
-lr = 1
-save_dir = '../saved_models'
-save_name = 'model'
+data_dir = '../../../data'
+num_runs = 2
 
+lr = 1
+epochs = 5
+save_dir = '../../../saved_models'
+save_name = 'model'
 
 # ===============================================================
 
 
-def train_1file(model, optimizer, data_list):
-    """train for 1 .pkl file"""
-    num_data = len(data_list)
-    for i in range(num_data - 1):
+def train(model, optimizer, data_list, idx):
+    """train for 1 epoch"""
+    for i in idx:
         optimizer.zero_grad()
         data_cur = data_list[i]
         data_nxt = data_list[i + 1]
         reward = (data_nxt[3] - data_nxt[4]) - (data_cur[3] - data_nxt[4])
-        loss = model.q_val(data_cur[0], [data_cur[1], data_cur[2]]) - \
-               model.q_val(data_nxt[0], [data_nxt[1], data_nxt[2]]).detach() + reward
+        loss = (model.q_val(data_cur[0].float(), data_cur[1].float(), data_cur[2].float()) - \
+                model.q_val(data_nxt[0].float(), data_nxt[1].float(), data_nxt[2].float()).detach() - reward) ** 2
         loss.backward()
         optimizer.step()
 
@@ -37,9 +40,11 @@ def train_1file(model, optimizer, data_list):
 
 
 if __name__ == '__main__':
-    data_dir = './'
-    num_runs = 100
     data_files = ['run_' + str(i) + '.pkl' for i in range(num_runs)]
+    # read in all the data
+    data_list = []
+    for n in range(num_runs):
+        data_list += pickle.load(open(os.path.join(data_dir, data_files[n]), 'rb'))
 
     # initialize the model
     model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
@@ -48,9 +53,14 @@ if __name__ == '__main__':
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
     # training loop
-    for n in range(num_runs):
-        data_list = pickle.load(open(os.path.join(data_dir, data_files[n]), 'rb'))
-        loss = train_1file(model, optimizer, data_list)
+    num_train = len(data_list) - 1
+    train_idx = list(range(num_train))
+    for ep in range(epochs):
+        print(f'epoch {ep + 1}/{epochs} ' + '-' * 10)
+        random.shuffle(train_idx)
+        loss = train(model, optimizer, data_list, train_idx)
+        print(f'loss: {loss.item():.5f}')
 
     # save model
+    os.makedirs(save_dir, exist_ok=True)
     torch.save(model, os.path.join(save_dir, save_name))

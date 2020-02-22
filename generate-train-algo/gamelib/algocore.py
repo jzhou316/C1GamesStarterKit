@@ -82,7 +82,11 @@ class AlgoCore(object):
                     This is the end game message. This means the game is over so break and finish the program.
                     """
                     import pickle
-                    pickle.dump(self.to_dump, open('dump.pkl', 'wb'))
+                    if self.need_dump:
+                        import glob
+                        filenames = glob.glob(run_'*.pkl')
+                        run_id = len(filenames)
+                        pickle.dump(self.to_dump, open('run_%s.pkl'%run_id, 'wb'))
                     debug_write("Got end state, game over. Stopping algo.")
                     break
                 else:

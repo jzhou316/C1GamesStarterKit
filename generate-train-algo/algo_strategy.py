@@ -5,6 +5,8 @@ import warnings
 from sys import maxsize
 import json
 import torch
+from model import QModel
+import numpy as np
 
 """
 Most of the algo code you write will be in this file unless you create new
@@ -33,6 +35,9 @@ class AlgoStrategy(gamelib.AlgoCore):
         gamelib.debug_write('Configuring your custom algo strategy...')
         self.config = config
         global FILTER, ENCRYPTOR, DESTRUCTOR, PING, EMP, SCRAMBLER, BITS, CORES
+        global NEED_DUMP
+        NEED_DUMP = True
+        self.need_dump = NEED_DUMP
         FILTER = config["unitInformation"][0]["shorthand"]
         ENCRYPTOR = config["unitInformation"][1]["shorthand"]
         DESTRUCTOR = config["unitInformation"][2]["shorthand"]
@@ -44,6 +49,12 @@ class AlgoStrategy(gamelib.AlgoCore):
         # This is a good place to do initial setup
         self.scored_on_locations = []
         self.to_dump = []
+        s_dim = 2352  # 28 * 28 * 3
+        a_att_dim = 840  # 28 * 3 * 10
+        a_def_dim = 1176  # 28 * 14 * 3
+        # total 4368, #params 4368 * 500 = 2,184,000
+        hid_dim = 500
+        self.model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
 
     
         
@@ -61,20 +72,110 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.suppress_warnings(True)  #Comment or remove this line to enable warnings.
         
         state = self.game_state_to_tensor(game_state)
-        
-        # TODO: use real state, action_attack, action_defense!
-#         state = torch.zeros(28, 28, 3).long()
-        action_attack = torch.zeros(28, 3, 10).long()
-        action_defense = torch.zeros(28, 14, 3).long()
+
+        p = random.random()
+        if p < 0.8:
+            gamelib.debug_write('Using BASELINE Policy')
+            self.starter_strategy(game_state)
+        else:
+            gamelib.debug_write('Using RL Policy')
+            action_attack, action_defense = self.model.infer_act(state.float())
+            self.tensor_to_attack(game_state, action_attack)
+            self.tensor_to_defense(game_state, action_defense)
+
+        build_stack = game_state._build_stack
+        deploy_stack = game_state._deploy_stack
+        action_defense = self.build_to_defense(build_stack)
+        action_attack = self.build_to_attack(deploy_stack)
+
+            #for unit_type, x, y in game_state._build_stack:
+            #    costs = game_state.type_cost(unit_type)
+            #    game_state.__set_resource(0, 0 + costs[0])
+            #    game_state.__set_resource(1, 0 + costs[1])
+
+            #game_state._build_stack = []
+            #game_state._deploy_stack = []
+
+
         my_health = game_state.my_health
         enemy_health = game_state.enemy_health
-
         self.to_dump.append((state, action_attack, action_defense, my_health, enemy_health))
-
-        self.starter_strategy(game_state)
-
         game_state.submit_turn()
 
+
+    def tensor_to_attack(self, game_state, action_attack):
+        id2name = {0: PING,
+                   1: EMP,
+                   2: SCRAMBLER}
+
+        nonzero_entries = action_attack.nonzero()
+        num_attacks = nonzero_entries.size(0)
+        gamelib.debug_write('TENSOR_TO_ATTACK TOTAL: %s...'%(num_attacks))
+
+        for attack_id in range(num_attacks):
+            indices = nonzero_entries[attack_id]
+            x = indices[0].item()
+            id = indices[1].item()
+            num = indices[2].item()
+            gamelib.debug_write('TENSOR_TO_ATTACK x: %s, id: %s, num: %s...'%(x, id, num))
+            if x < 14:
+                game_state.attempt_spawn(id2name[id], [x,13-x], num+1)
+            else:
+                game_state.attempt_spawn(id2name[id], [x,x-14], num+1)
+        return
+
+
+    def tensor_to_defense(self, game_state, action_defense):
+        id2name = {0: FILTER,
+                   1: ENCRYPTOR,
+                   2: DESTRUCTOR}
+        nonzero_entries = action_defense.nonzero()
+        num_attacks = nonzero_entries.size(0)
+        gamelib.debug_write('TENSOR_TO_DEFENSE TOTAL: %s...'%(num_attacks))
+
+        for attack_id in range(num_attacks):
+            indices = nonzero_entries[attack_id]
+            x = indices[0].item()
+            y = indices[1].item()
+            id = indices[2].item()
+            best_location = [x, y]
+            gamelib.debug_write('TENSOR_TO_DEFENSE x: %s, y: %s, id: %s...'%(x, y, id))
+            game_state.attempt_spawn(id2name[id], best_location)
+        return
+
+
+    def build_to_attack(self, build_stack):
+        name2id = {PING:0,
+           EMP:1,
+           SCRAMBLER:2}
+        array = torch.zeros((28, 3)).long()
+        action_attack = torch.zeros(28, 3, 10).long()
+        for obj in build_stack:
+            unit_type = obj[0]
+            x = obj[1]
+            array[x, name2id[unit_type]] += 1
+
+        for obj in build_stack:
+            unit_type = obj[0]
+            x = obj[1]
+            num = array[x, name2id[unit_type]]
+            action_attack[x, name2id[unit_type], min(num.item()-1, 9)] = 1
+        return action_attack
+
+    def build_to_defense(self, deploy_stack):
+        name2id = {FILTER: 0,
+                   ENCRYPTOR : 1,
+                   DESTRUCTOR : 2}
+        action_defense = torch.zeros(28, 14, 3).long()
+        for obj in deploy_stack:
+            unit_type = obj[0]
+            if unit_type not in name2id:
+                continue
+
+            x = obj[1]
+            y = obj[2]
+            action_defense[x, y, name2id[unit_type]] = 1
+        return action_defense
 
     """
     NOTE: All the methods after this point are part of the sample starter-algo
@@ -133,7 +234,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         filter_locations = [[8, 12], [19, 12]]
         game_state.attempt_spawn(FILTER, filter_locations)
         # upgrade filters so they soak more damage
-        game_state.attempt_upgrade(filter_locations)
+        if not NEED_DUMP:
+            game_state.attempt_upgrade(filter_locations)
 
     def build_reactive_defense(self, game_state):
         """
@@ -158,12 +260,16 @@ class AlgoStrategy(gamelib.AlgoCore):
         deploy_locations = self.filter_blocked_locations(friendly_edges, game_state)
         
         # While we have remaining bits to spend lets send out scramblers randomly.
+        deployed = 0
         while game_state.get_resource(BITS) >= game_state.type_cost(SCRAMBLER)[BITS] and len(deploy_locations) > 0:
             # Choose a random deploy location.
             deploy_index = random.randint(0, len(deploy_locations) - 1)
             deploy_location = deploy_locations[deploy_index]
             
             game_state.attempt_spawn(SCRAMBLER, deploy_location)
+            deployed += 1
+            if NEED_DUMP and deployed == 10:
+                break
             """
             We don't have to remove the location since multiple information 
             units can occupy the same space.

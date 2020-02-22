@@ -84,7 +84,7 @@ class AlgoCore(object):
                     import pickle
                     if self.need_dump:
                         import glob
-                        filenames = glob.glob(run_'*.pkl')
+                        filenames = glob.glob('run_*.pkl')
                         run_id = len(filenames)
                         pickle.dump(self.to_dump, open('run_%s.pkl'%run_id, 'wb'))
                     debug_write("Got end state, game over. Stopping algo.")

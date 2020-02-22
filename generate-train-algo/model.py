@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-
+import sys
 
 class QModel(nn.Module):
     """model for Q-learning for game action prediction."""
@@ -13,6 +13,12 @@ class QModel(nn.Module):
         self.mlp = nn.Sequential(nn.Linear(s_dim + a_att_dim + a_def_dim, hid_dim),
                                  nn.ReLU(),
                                  nn.Linear(hid_dim, 1))
+        self.reset_parameters()
+        print(f'number of parameters: {self.param_size()}', file=sys.stderr)
+
+    def reset_parameters(self):
+        for p in self.parameters():
+            nn.init.uniform_(p, -0.05, 0.05)
 
     def q_val(self, s, a_att, a_def):
         """

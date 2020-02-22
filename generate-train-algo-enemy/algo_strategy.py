@@ -79,6 +79,74 @@ class AlgoStrategy(gamelib.AlgoCore):
         
         state = self.game_state_to_tensor(game_state)
 
+        if self.game_state.turn_number == 0:
+          p = random.random()
+          if p < 0.2:
+            #######
+            # Start_algo
+            self.game_state.attemp_spawn(FILTER, [0,13], 1)
+             # Place destructors that attack enemy units
+            destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
+            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+            self.game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+        
+            # Place filters in front of destructors to soak up damage for them
+            filter_locations = [[8, 12], [19, 12]]
+            self.game_state.attempt_spawn(FILTER, filter_locations)
+            # upgrade filters so they soak more damage
+            self.game_state.attempt_upgrade(filter_locations)
+            ####End start_algo 
+           elif p<0.4:
+            ######
+            # Bose_1 
+            destructor_locations = [[0, 14], [1, 14], [3, 14], [24, 14], [26, 14], [27, 14]]
+            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+            self.game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+        
+            # Place filters in front of destructors to soak up damage for them
+            filter_locations = [[2, 12], [4, 12],[23, 12], [25, 12]]
+            self.game_state.attempt_spawn(FILTER, filter_locations)
+            # upgrade filters so they soak more damage
+            self.game_state.attempt_upgrade([[10,22],[12,22],[13,20]])
+            
+           elif p<0.6:
+            ######
+            # Bose_2 
+            destructor_locations = [[4, 16], [13, 21], [23, 16]]
+            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+            self.game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+        
+            # Place filters in front of destructors to soak up damage for them
+            filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+            self.game_state.attempt_spawn(FILTER, filter_locations)
+            ######End of bose 2
+            
+           elif p<0.8:
+            ######
+            # Bose_3 
+            destructor_locations = [[4, 16], [13, 21], [23, 16]]
+            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+            self.game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+        
+            # Place filters in front of destructors to soak up damage for them
+            filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+            self.game_state.attempt_spawn(FILTER, filter_locations)
+            
+           elif p<0.8:
+            ######
+            # Bose_4
+            destructor_locations = [[4, 16], [13, 21], [23, 16]]
+            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
+            self.game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
+        
+            # Place filters in front of destructors to soak up damage for them
+            filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+            self.game_state.attempt_spawn(FILTER, filter_locations)
+            #####End of bose 4 
+            
+            
+            
+            
         p = random.random()
         if p < 0.8:
             gamelib.debug_write('Using BASELINE Policy')

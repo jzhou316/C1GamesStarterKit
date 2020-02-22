@@ -481,6 +481,15 @@ class AlgoStrategy(gamelib.AlgoCore):
             if path is None:
                 return None
             for path_location in path:
+                unit = game_state.game_map[path_location[0], path_location[1]]
+                if unit is None:
+                    continue
+                if len(unit) == 0:
+                    continue
+                unit = unit[0]
+                if unit.player_index == 0:
+                    return None
+            for path_location in path:
                 # Get number of enemy destructors that can attack the final location and multiply by destructor damage
                 damage += len(game_state.get_attackers(path_location, 0)) * gamelib.GameUnit(DESTRUCTOR, game_state.config).damage_i
             damages.append(damage)

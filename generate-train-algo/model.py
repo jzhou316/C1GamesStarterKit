@@ -11,10 +11,13 @@ class QModel(nn.Module):
         self.a_def_dim = a_def_dim
         self.hid_dim = hid_dim
         self.mlp = nn.Sequential(nn.Linear(s_dim + a_att_dim + a_def_dim, hid_dim),
-                                 nn.ReLU(),
+                                 nn.LeakyReLU(0.1),
                                  nn.Linear(hid_dim, 1))
         self.reset_parameters()
         print(f'number of parameters: {self.param_size()}', file=sys.stderr)
+
+    def load(self, model_path):
+        self.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
     def reset_parameters(self):
         for p in self.parameters():
@@ -37,7 +40,7 @@ class QModel(nn.Module):
         q = self.mlp(torch.cat([s, a_att, a_def], dim=0))
         return q
 
-    def infer_act(self, s):
+    def infer_act(self, s): # recursive?
         """
         :param self:
         :param s: current state of the map, represented by a tensor

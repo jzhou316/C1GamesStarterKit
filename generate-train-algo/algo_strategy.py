@@ -7,6 +7,10 @@ import json
 import torch
 from model import QModel
 import numpy as np
+import os
+
+global current_dir 
+current_dir = os.path.dirname(__file__)
 
 """
 Most of the algo code you write will be in this file unless you create new
@@ -55,6 +59,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         # total 4368, #params 4368 * 500 = 2,184,000
         hid_dim = 500
         self.model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
+        gamelib.debug_write('---------------------------------------------------loading model from %s/model.pt'%current_dir)
+        self.model.load(os.path.join(current_dir, 'model.pt'))
 
     
         

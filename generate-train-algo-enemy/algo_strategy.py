@@ -10,7 +10,7 @@ import numpy as np
 import os
 
 global current_dir 
-#current_dir = os.path.dirname(__file__)
+current_dir = os.path.dirname(__file__)
 current_dir = '../../saved_models'
 
 """
@@ -54,9 +54,9 @@ class AlgoStrategy(gamelib.AlgoCore):
         # This is a good place to do initial setup
         self.scored_on_locations = []
         self.to_dump = []
-        s_dim = 2352  # 28 * 28 * 3
+        s_dim = 3136  # 28 * 28 * 3
         a_att_dim = 840  # 28 * 3 * 10
-        a_def_dim = 1176  # 28 * 14 * 3
+        a_def_dim = 1568  # 28 * 14 * 3
         # total 4368, #params 4368 * 500 = 2,184,000
         hid_dim = 500
         self.model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
@@ -102,7 +102,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 gamelib.debug_write('BOSE 1')
                 ######
                 # Bose_1 
-                destructor_locations = [[0, 14], [1, 14], [3, 14], [24, 14], [26, 14], [27, 14]]
+                destructor_locations = [[0, 13], [1, 13], [3, 13], [24, 13], [26, 13], [27, 13]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
@@ -110,18 +110,18 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 12], [4, 12],[23, 12], [25, 12]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 # upgrade filters so they soak more damage
-                game_state.attempt_upgrade([[10,22],[12,22],[13,20]])
+                game_state.attempt_upgrade([[2, 12],[4, 12],[25, 12]])
              
             elif p<0.6:
                 gamelib.debug_write('BOSE 2')
                 ######
                 # Bose_2 
-                destructor_locations = [[4, 16], [13, 21], [23, 16]]
+                destructor_locations = [[4, 11], [13, 6], [23, 11]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
                 # Place filters in front of destructors to soak up damage for them
-                filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 5],[13, 7], [14, 7],[15, 7], [16, 7],[17,7], [18, 7],[19, 7],[20, 8], [19, 7],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 ######End of bose 2
              
@@ -129,25 +129,24 @@ class AlgoStrategy(gamelib.AlgoCore):
                 gamelib.debug_write('BOSE 3')
                 ######
                 # Bose_3 
-                destructor_locations = [[4, 16], [13, 21], [23, 16]]
+                destructor_locations = [[4, 11], [13, 6], [23, 11]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
                 # Place filters in front of destructors to soak up damage for them
-                filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12,5],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 8],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
              
             elif p<0.8:
                 ######
                 # Bose_4
-                destructor_locations = [[4, 16], [13, 21], [23, 16]]
+                destructor_locations = [[4, 11], [13, 6], [23, 11]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
                 # Place filters in front of destructors to soak up damage for them
-                filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 2],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 7],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 #####End of bose 4 
-              
               
               
         p = random.random()
@@ -179,7 +178,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.submit_turn()
 
 
-        #return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 3, 10), a_grads[1].reshape(28, 14, 3)
+        #return a_att.reshape(28, 4, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 4, 10), a_grads[1].reshape(28, 14, 3)
     def tensor_to_attack_defense(self, game_state, scores_attack, scores_defense):
         attack_id2name = {0: PING,
                    1: EMP,
@@ -197,11 +196,14 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         def attempt_defense(defense_id):
             defense_id = defense_id.item()
-            x = int( math.floor(defense_id / (3*14)))
-            defense_id = defense_id - x * (3*14)
-            y = int(math.floor(defense_id / (3)))
-            defense_id = defense_id - y * 3
+            x = int( math.floor(defense_id / (4*14)))
+            defense_id = defense_id - x * (4*14)
+            y = int(math.floor(defense_id / (4)))
+            defense_id = defense_id - y * 4
             z = defense_id
+            if z == 3:
+                game_state.attempt_upgrade([(x, y)])
+                return
             game_state.attempt_spawn(defense_id2name[z], (x, y))
             gamelib.debug_write('TENSOR_TO_DEFENSE x: %s, y: %s, id: %s...'%(x, y, z))
 
@@ -268,14 +270,14 @@ class AlgoStrategy(gamelib.AlgoCore):
         name2id = {FILTER: 0,
                    ENCRYPTOR : 1,
                    DESTRUCTOR : 2}
-        action_defense = torch.zeros(28, 14, 3).long()
+        action_defense = torch.zeros(28, 14, 4).long()
         for obj in deploy_stack:
             unit_type = obj[0]
-            if unit_type not in name2id:
-                continue
-
             x = obj[1]
             y = obj[2]
+            if unit_type == 'UP':
+                action_defense[x, y, 3] = 1
+                continue
             action_defense[x, y, name2id[unit_type]] = 1
         return action_defense
 
@@ -313,7 +315,8 @@ class AlgoStrategy(gamelib.AlgoCore):
                     # To simplify we will just check sending them from back left and right
                     ping_spawn_location_options = [[13, 0], [14, 0]]
                     best_location = self.least_damage_spawn_location(game_state, ping_spawn_location_options)
-                    game_state.attempt_spawn(PING, best_location, 1000)
+                    if best_location is not None:
+                        game_state.attempt_spawn(PING, best_location, 1000)
 
                 # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
                 encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
@@ -410,6 +413,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         for location in location_options:
             path = game_state.find_path_to_edge(location)
             damage = 0
+            if path is None:
+                return None
             for path_location in path:
                 # Get number of enemy destructors that can attack the final location and multiply by destructor damage
                 damage += len(game_state.get_attackers(path_location, 0)) * gamelib.GameUnit(DESTRUCTOR, game_state.config).damage_i
@@ -456,7 +461,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 gamelib.debug_write("All locations: {}".format(self.scored_on_locations))
     
     def game_state_to_tensor(self, game_state):
-        state = torch.zeros(28, 28, 3).long()
+        state = torch.zeros(28, 28, 4).long()
         name2id = {FILTER: 0, 
                    ENCRYPTOR: 1,
                    DESTRUCTOR: 2}
@@ -471,6 +476,8 @@ class AlgoStrategy(gamelib.AlgoCore):
                         name = unit.unit_type
                         assert name in name2id, name
                         state[i, j, name2id[name]] = 1
+                        if unit.upgraded:
+                            state[i, j, 3] = 1
         return state
 
 

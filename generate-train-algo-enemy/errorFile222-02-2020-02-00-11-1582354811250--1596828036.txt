@@ -1,0 +1,15 @@
+Random seed: 8017235926432203614
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+Performing turn 0 of your custom algo strategy
+Using BASELINE Policy
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 356, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 74, in start
+    self.on_turn(game_state_string)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 84, in on_turn
+    action_defense = self.build_to_defense(build_stack)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 161, in build_to_defense
+    action_defense[x, y, name2id[unit_type]] = 1
+KeyError: 'UP'

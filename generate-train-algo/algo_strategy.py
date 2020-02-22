@@ -85,9 +85,8 @@ class AlgoStrategy(gamelib.AlgoCore):
             self.starter_strategy(game_state)
         else:
             gamelib.debug_write('Using RL Policy')
-            action_attack, action_defense = self.model.infer_act(state.float())
-            self.tensor_to_attack(game_state, action_attack)
-            self.tensor_to_defense(game_state, action_defense)
+            _, _, scores_attack, scores_defense = self.model.infer_act(state.float())
+            self.tensor_to_attack_defense(game_state, scores_attack, scores_defense)
 
         build_stack = game_state._build_stack
         deploy_stack = game_state._deploy_stack
@@ -109,44 +108,70 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.submit_turn()
 
 
-    def tensor_to_attack(self, game_state, action_attack):
-        id2name = {0: PING,
+        #return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 3, 10), a_grads[1].reshape(28, 14, 3)
+    def tensor_to_attack_defense(self, game_state, scores_attack, scores_defense):
+        attack_id2name = {0: PING,
                    1: EMP,
                    2: SCRAMBLER}
-
-        nonzero_entries = action_attack.nonzero()
-        num_attacks = nonzero_entries.size(0)
-        gamelib.debug_write('TENSOR_TO_ATTACK TOTAL: %s...'%(num_attacks))
-
-        for attack_id in range(num_attacks):
-            indices = nonzero_entries[attack_id]
-            x = indices[0].item()
-            id = indices[1].item()
-            num = indices[2].item()
-            gamelib.debug_write('TENSOR_TO_ATTACK x: %s, id: %s, num: %s...'%(x, id, num))
-            if x < 14:
-                game_state.attempt_spawn(id2name[id], [x,13-x], num+1)
-            else:
-                game_state.attempt_spawn(id2name[id], [x,x-14], num+1)
-        return
-
-
-    def tensor_to_defense(self, game_state, action_defense):
-        id2name = {0: FILTER,
+        defense_id2name = {0: FILTER,
                    1: ENCRYPTOR,
                    2: DESTRUCTOR}
-        nonzero_entries = action_defense.nonzero()
-        num_attacks = nonzero_entries.size(0)
-        gamelib.debug_write('TENSOR_TO_DEFENSE TOTAL: %s...'%(num_attacks))
+        scores_attack = scores_attack.view(-1)
+        scores_defense = scores_defense.view(-1)
 
-        for attack_id in range(num_attacks):
-            indices = nonzero_entries[attack_id]
-            x = indices[0].item()
-            y = indices[1].item()
-            id = indices[2].item()
-            best_location = [x, y]
-            gamelib.debug_write('TENSOR_TO_DEFENSE x: %s, y: %s, id: %s...'%(x, y, id))
-            game_state.attempt_spawn(id2name[id], best_location)
+        sorted_attack, attack_ids = torch.sort(scores_attack, 0, descending=True)
+        sorted_defense, defense_ids = torch.sort(scores_defense, 0, descending=True)
+
+        attack_ptr, defense_ptr = 0, 0
+
+        def attempt_defense(defense_id):
+            defense_id = defense_id.item()
+            x = int( math.floor(defense_id / (3*14)))
+            defense_id = defense_id - x * (3*14)
+            y = int(math.floor(defense_id / (3)))
+            defense_id = defense_id - y * 3
+            z = defense_id
+            game_state.attempt_spawn(defense_id2name[z], (x, y))
+            gamelib.debug_write('TENSOR_TO_DEFENSE x: %s, y: %s, id: %s...'%(x, y, z))
+
+        def attempt_attack(attack_id):
+            attack_id = attack_id.item()
+            x = int( math.floor(attack_id / (3*10)))
+            attack_id = attack_id - x * (3*10)
+            y = int(math.floor(attack_id / (10)))
+            attack_id = attack_id - y * 10
+            z = attack_id
+            if x < 14:
+                game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
+            else:
+                game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
+            gamelib.debug_write('TENSOR_TO_ATTACK x: %s, id: %s, num: %s...'%(x, y, z+1))
+
+        while attack_ptr < scores_attack.size(0) or defense_ptr < scores_defense.size(0):
+            if attack_ptr == scores_attack.size(0):
+                if sorted_defense[defense_ptr].item() > 0:
+                    attempt_defense(defense_ids[defense_ptr])
+                    defense_ptr += 1
+                else:
+                    break
+            elif defense_ptr == scores_defense.size(0):
+                if sorted_attack[attack_ptr].item() > 0:
+                    attempt_attack(attack_ids[attack_ptr])
+                    attack_ptr += 1
+                else:
+                    break
+            else:
+                if sorted_attack[attack_ptr] > sorted_defense[defense_ptr]:
+                    if sorted_attack[attack_ptr].item() < 0:
+                        break
+                    attempt_attack(attack_ids[attack_ptr])
+                    attack_ptr += 1
+                else:
+                    if sorted_defense[defense_ptr].item() < 0:
+                        break
+                    attempt_defense(defense_ids[defense_ptr])
+                    defense_ptr += 1
+
         return
 
 

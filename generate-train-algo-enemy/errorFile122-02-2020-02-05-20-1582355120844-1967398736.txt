@@ -1,0 +1,23 @@
+Random seed: 9117271247690311598
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+Performing turn 0 of your custom algo strategy
+Using BASELINE Policy
+('DF', 0, 13)
+('DF', 27, 13)
+('DF', 8, 11)
+('DF', 19, 11)
+('DF', 13, 11)
+('DF', 14, 11)
+('FF', 8, 12)
+('FF', 19, 12)
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 358, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 74, in start
+    self.on_turn(game_state_string)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 85, in on_turn
+    action_attack = self.build_to_attack(deploy_stack)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 138, in build_to_attack
+    array = np.zeros((28, 3))
+NameError: name 'np' is not defined

@@ -1,0 +1,15 @@
+Random seed: 7698476467275027880
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+Performing turn 0 of your custom algo strategy
+Using BASELINE Policy
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 356, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 74, in start
+    self.on_turn(game_state_string)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 84, in on_turn
+    action_defense = self.build_to_defense(build_stack)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 157, in build_to_defense
+    for obj in build_stack:
+NameError: name 'build_stack' is not defined

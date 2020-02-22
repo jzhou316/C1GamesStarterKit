@@ -28,17 +28,20 @@ old_model_path = 'saved_models_old/model'
 def train(old_model, model, optimizer, data_list, idx):
     """train for 1 epoch"""
     running_loss = 0
+    running_reward = 0.
     for i in idx:
         optimizer.zero_grad()
         data_cur = data_list[i]
         data_nxt = data_list[i + 1]
-        reward = (data_nxt[3] - data_nxt[4]) - (data_cur[3] - data_nxt[4])
+        reward = (data_nxt[3] - data_nxt[4]) - (data_cur[3] - data_cur[4])
         loss = (model.q_val(data_cur[0].float().cuda(), data_cur[1].float().cuda(), data_cur[2].float().cuda()) - \
                 old_model.q_val(data_nxt[0].float().cuda(), data_nxt[1].float().cuda(), data_nxt[2].float().cuda()).detach() - reward) ** 2
         loss.backward()
         #nn.utils.clip_grad_norm_(model.parameters(), clip) 
         optimizer.step()
+        running_reward += reward**2
         running_loss += loss.item()
+    print (running_reward/len(idx))
 
     return running_loss / len(idx)
 
@@ -52,9 +55,9 @@ if __name__ == '__main__':
 
     # initialize the model
     old_model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
-    #if len(old_model_path) > 0:
-    #    print ('loading')
-    #    old_model.load_state_dict(torch.load(old_model_path))
+    if len(old_model_path) > 0:
+        print ('loading')
+        old_model.load_state_dict(torch.load(old_model_path))
     #    sys.exit(1)
     old_model.eval()
     model = deepcopy(old_model)

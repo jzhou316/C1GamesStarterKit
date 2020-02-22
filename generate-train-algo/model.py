@@ -53,7 +53,7 @@ class QModel(nn.Module):
         a_def = torch.zeros(self.a_def_dim, requires_grad=True)
         a = [a_att, a_def]
         q = self.q_val(s, a_att, a_def)
-        a_grads = torch.autograd.grad(q, [a_att, a_def])[0]
+        a_grads = torch.autograd.grad(q, [a_att, a_def])
         a_att.requires_grad = False
         a_def.requires_grad = False
         for aa, grad in zip(a, a_grads):
@@ -61,7 +61,7 @@ class QModel(nn.Module):
             idx = grad_idx[grad_sorted > 0]
             aa[idx] = 1
 
-        return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 3)
+        return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 3, 10), a_grads[1].reshape(28, 14, 3)
 
     def param_size(self):
         return sum([p.numel() for p in self.parameters()])

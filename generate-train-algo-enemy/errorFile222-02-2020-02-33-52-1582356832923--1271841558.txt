@@ -1,0 +1,13 @@
+Random seed: 6513642403792731604
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+Performing turn 0 of your custom algo strategy
+Using BASELINE Policy
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 375, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 74, in start
+    self.on_turn(game_state_string)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 94, in on_turn
+    game_state.__set_resource(0, 0 + costs[0])
+AttributeError: 'GameState' object has no attribute '_AlgoStrategy__set_resource'

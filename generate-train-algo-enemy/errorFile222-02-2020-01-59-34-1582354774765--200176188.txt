@@ -1,0 +1,17 @@
+Random seed: 3783173992466844426
+---------------- Starting Your Algo --------------------
+Configuring your custom algo strategy...
+Performing turn 0 of your custom algo strategy
+Using RL Policy
+TENSOR_TO_ATTACK TOTAL: 1...
+TENSOR_TO_ATTACK x: 0, id: 0, num: 0...
+TENSOR_TO_DEFENSE TOTAL: 1...
+TENSOR_TO_DEFENSE x: 0, y: 0, id: 0...
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 356, in <module>
+    algo.start()
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 74, in start
+    self.on_turn(game_state_string)
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 84, in on_turn
+    action_defense = build_to_defense(build_stack)
+NameError: name 'build_to_defense' is not defined

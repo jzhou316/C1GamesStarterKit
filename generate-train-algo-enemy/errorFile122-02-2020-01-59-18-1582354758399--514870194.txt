@@ -1,0 +1,4 @@
+  File "/home/yuntian/Dropbox/Terminal/yuntian/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 152
+    def build_to_defense(self, deploy_stack):
+                                            ^
+IndentationError: unindent does not match any outer indentation level

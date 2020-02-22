@@ -144,7 +144,9 @@ class AlgoStrategy(gamelib.AlgoCore):
             self.game_state.attempt_spawn(FILTER, filter_locations)
             #####End of bose 4 
             
-            
+        # If the turn is less than 5, stall with Scramblers and wait to see enemy's base
+        if game_state.turn_number < 5:
+            self.stall_with_scramblers(game_state)
             
             
         p = random.random()

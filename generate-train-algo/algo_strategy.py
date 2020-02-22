@@ -60,10 +60,12 @@ class AlgoStrategy(gamelib.AlgoCore):
         gamelib.debug_write('Performing turn {} of your custom algo strategy'.format(game_state.turn_number))
         game_state.suppress_warnings(True)  #Comment or remove this line to enable warnings.
 
+        state = self.game_state_to_tensor(game_state)
+        
         # TODO: use real state, action_attack, action_defense!
         state = torch.zeros(28, 28, 3).long()
-        action_attack = torch.zeros(2, 14, 30).long()
-        action_defense = torch.zeros(28, 3, 10).long()
+        action_attack = torch.zeros(28, 3, 10).long()
+        action_defense = torch.zeros(28, 14, 3).long()
         my_health = game_state.my_health
         enemy_health = game_state.enemy_health
 
@@ -244,6 +246,11 @@ class AlgoStrategy(gamelib.AlgoCore):
                 gamelib.debug_write("Got scored on at: {}".format(location))
                 self.scored_on_locations.append(location)
                 gamelib.debug_write("All locations: {}".format(self.scored_on_locations))
+    
+    def game_state_to_tensor(self, game_state):
+        state = torch.zeros(28, 28, 3).long()
+        
+        return state
 
 
 if __name__ == "__main__":

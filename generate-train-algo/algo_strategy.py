@@ -254,8 +254,14 @@ class AlgoStrategy(gamelib.AlgoCore):
                    DESTRUCTOR: 2}
         for i in range(28):
             for j in range(28):
-                for name in name2id:
-                    if game_state.game_map[[i, j]] == name:
+                import sys
+                if game_state.game_map[i, j] is not None:
+                    units = game_state.game_map[i, j]
+                    if len(units) > 0:
+                        assert len(units) == 1, len(units)
+                        unit = units[-1]
+                        name = unit.unit_type
+                        assert name in name2id, name
                         state[i, j, name2id[name]] = 1
         return state
 

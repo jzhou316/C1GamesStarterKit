@@ -102,7 +102,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 gamelib.debug_write('BOSE 1')
                 ######
                 # Bose_1 
-                destructor_locations = [[0, 14], [1, 14], [3, 14], [24, 14], [26, 14], [27, 14]]
+                destructor_locations = [[0, 13], [1, 13], [3, 13], [24, 13], [26, 13], [27, 13]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
@@ -110,18 +110,18 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 12], [4, 12],[23, 12], [25, 12]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 # upgrade filters so they soak more damage
-                game_state.attempt_upgrade([[10,22],[12,22],[13,20]])
+                game_state.attempt_upgrade([[2, 12],[4, 12],[25, 12]])
              
             elif p<0.6:
                 gamelib.debug_write('BOSE 2')
                 ######
                 # Bose_2 
-                destructor_locations = [[4, 16], [13, 21], [23, 16]]
+                destructor_locations = [[4, 11], [13, 6], [23, 11]]
                 # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
                 game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
                 # Place filters in front of destructors to soak up damage for them
-                filter_locations = [[2, 14], [3, 15],[5, 17], [6, 18],[7, 19], [8, 20],[9, 21], [10, 22],[11, 23], [12, 22],[13, 20], [14, 20],[15, 20], [16, 20],[17, 20], [18, 20],[19, 20],[20, 19], [19, 20],[18, 21], [24, 15],[25, 14]]
+                filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 5],[13, 7], [14, 7],[15, 7], [16, 7],[17,7], [18, 7],[19, 7],[20, 8], [19, 7],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 ######End of bose 2
              

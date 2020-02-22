@@ -167,15 +167,6 @@ class AlgoStrategy(gamelib.AlgoCore):
                 game_state.attempt_upgrade([[2, 13],[14, 7],[15, 5],[16,4],[17, 5], [18, 6],[19, 7],[20, 8]])
                 #####End of bose 5
               
-        if p < 0.5:      
-            destructor_locations = [[4, 11], [13, 6], [23, 11]]
-            # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
-            game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        
-            # Place filters in front of destructors to soak up damage for them
-            filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12, 5],[13, 7], [14, 7],[15, 7], [16, 7],[17,7], [18, 7],[19, 7],[20, 8], [21, 9],[22, 10], [24,12],[25, 13]]
-            game_state.attempt_spawn(FILTER, filter_locations)
-            game_state.attempt_upgrade([[13, 7],[12, 5],[10, 5]])
         p = random.random()
         if p < 0.8:
             gamelib.debug_write('Using BASELINE Policy')

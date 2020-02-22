@@ -59,6 +59,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         a_def_dim = 1568  # 28 * 14 * 3
         # total 4368, #params 4368 * 500 = 2,184,000
         hid_dim = 500
+        self.forbidden = []
         self.model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)
         gamelib.debug_write('---------------------------------------------------loading model from %s/model.pt'%current_dir)
         #self.model.load(os.path.join(current_dir, 'model.pt'))
@@ -86,6 +87,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             if p < 0.05:
                 filter_locations = [[0, 13], [1, 13], [2, 12], [3,11], [4,10], [5,9],[6,8], [7,7], [8,6],[9,5],[10,4], [11,3],[12,2],
                         [15,2],[16,3],[17,4],[18,5],[19,6],[20,7],[21,8],[22,9],[23,10],[24,11],[25,12],[26,13],[27,13]]
+                self.forbidden = [[13,4], [13,3], [13,2], [13,1], [13,0], [14,4], [14,3], [14,2],[14,1], [14,0]]
                 game_state.attempt_spawn(FILTER, filter_locations)
                 game_state.attempt_spawn(DESTRUCTOR, [[12,3],[13,5],[15,3]])
             if p < 0.1:
@@ -210,12 +212,18 @@ class AlgoStrategy(gamelib.AlgoCore):
         sorted_defense, defense_ids = torch.sort(scores_defense, 0, descending=True)
 
         attack_ptr, defense_ptr = 0, 0
+        game_map = game_state.game_map
+        edge_locations = game_map.get_edge_locations(game_map.BOTTOM_LEFT) + game_map.get_edge_locations(game_map.BOTTOM_RIGHT)
 
         def attempt_defense(defense_id):
             defense_id = defense_id.item()
             x = int( math.floor(defense_id / (4*14)))
             defense_id = defense_id - x * (4*14)
             y = int(math.floor(defense_id / (4)))
+            if (x,y) in edge_locations or [x,y] in edge_locations:
+                return
+            if [x,y] in self.forbidden:
+                return
             defense_id = defense_id - y * 4
             z = defense_id
             if z == 3:
@@ -352,7 +360,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 enc_loc = []
                 for location in encryptor_locations:
                     path = game_state.find_path_to_edge(location)
-                    if path is not None:
+                    if path is not None and location not in self.forbidden:
                         enc_loc.append(location)
                 if len(enc_loc) > 0:
                     game_state.attempt_spawn(ENCRYPTOR, enc_loc)
@@ -366,7 +374,10 @@ class AlgoStrategy(gamelib.AlgoCore):
         # More community tools available at: https://terminal.c1games.com/rules#Download
 
         # Place destructors that attack enemy units
-        destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
+        if len(self.forbidden)>0:
+            destructor_locations = [[13,5], [14,5]]
+        else:
+            destructor_locations = [[0, 13], [27, 13], [8, 11], [19, 11], [13, 11], [14, 11]]
         # attempt_spawn will try to spawn units if we have resources, and will check if a blocking unit is already there
         game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
         
@@ -386,6 +397,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         for location in self.scored_on_locations:
             # Build destructor one space above so that it doesn't block our own edge spawn locations
             build_location = [location[0], location[1]+1]
+            if build_location in self.forbidden:
+                continue
             game_state.attempt_spawn(DESTRUCTOR, build_location)
 
     def stall_with_scramblers(self, game_state):

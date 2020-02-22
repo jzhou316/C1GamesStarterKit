@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 1, in <module>
+    import gamelib
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/__init__.py", line 22, in <module>
+    from .algocore import AlgoCore
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/algocore.py", line 3, in <module>
+    from .game_state import GameState
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/game_state.py", line 5, in <module>
+    from .navigation import ShortestPathFinder
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/gamelib/navigation.py", line 4, in <module>
+    import queue
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/queue.py", line 4, in <module>
+    import threading
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/threading.py", line 1277, in <module>
+    _main_thread = _MainThread()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/threading.py", line 1193, in __init__
+    self._started.set()
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/threading.py", line 519, in set
+    with self._cond:
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/threading.py", line 240, in __enter__
+    return self._lock.__enter__()
+KeyboardInterrupt

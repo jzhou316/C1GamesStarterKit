@@ -61,7 +61,7 @@ class QModel(nn.Module):
             idx = grad_idx[grad_sorted > 0]
             aa[idx] = 1
 
-        return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 3, 10), a_grads[1].reshape(28, 14, 3)
+        return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 4), a_grads[0].reshape(28, 3, 10), a_grads[1].reshape(28, 14, 4)
 
     def param_size(self):
         return sum([p.numel() for p in self.parameters()])

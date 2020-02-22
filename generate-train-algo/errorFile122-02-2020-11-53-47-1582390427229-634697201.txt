@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/yuntian/Dropbox/Terminal/jzhou/C1GamesStarterKit/generate-train-algo/algo_strategy.py", line 7, in <module>
+    import torch
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/torch/__init__.py", line 44, in <module>
+    import numpy as _np
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/__init__.py", line 78, in <module>
+    from . import numeric
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/numeric.py", line 29, in <module>
+    from . import shape_base
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/shape_base.py", line 14, in <module>
+    from . import fromnumeric as _from_nx
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/fromnumeric.py", line 490, in <module>
+    def put(a, ind, v, mode='raise'):
+  File "/home/yuntian/anaconda3/envs/main/lib/python3.6/site-packages/numpy/core/overrides.py", line 181, in decorator
+    source, filename='<__array_function__ internals>', mode='exec')
+KeyboardInterrupt

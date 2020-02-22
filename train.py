@@ -51,7 +51,8 @@ if __name__ == '__main__':
     # read in all the data
     data_list = []
     for n in range(num_runs):
-        data_list += pickle.load(open(os.path.join(data_dir, data_files[n]), 'rb'))
+        if os.path.exists(os.path.join(data_dir, data_files[n])):
+            data_list += pickle.load(open(os.path.join(data_dir, data_files[n]), 'rb'))
 
     # initialize the model
     old_model = QModel(s_dim, a_att_dim, a_def_dim, hid_dim)

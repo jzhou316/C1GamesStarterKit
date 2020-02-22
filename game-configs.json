@@ -12,7 +12,7 @@
   },
   "unitInformation": [
     {
-      "cost1": 1.0,
+      "cost1": 0.5,
       "getHitRadius":0.01,
       "display":"Filter",
       "shorthand":"FF",
@@ -54,7 +54,8 @@
       "refundPercentage": 0.75,
       "turnsRequiredToRemove": 1,
       "upgrade": {
-        "attackDamageWalker":32.0
+        "attackDamageWalker":32.0,
+        "startHealth":1.0
       }
     },
 
@@ -109,7 +110,7 @@
       "selfDestructDamageWalker": 40.0,
       "selfDestructDamageTower": 40.0,
       "metalForBreach": 1.0,
-      "selfDestructRange": 1.5,
+      "selfDestructRange": 9,
       "selfDestructStepsRequired": 5
     },
     {

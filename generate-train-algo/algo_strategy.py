@@ -63,7 +63,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         # TODO: use real state, action_attack, action_defense!
         state = torch.zeros(28, 28, 3).long()
         action_attack = torch.zeros(2, 14, 30).long()
-        action_defense = torch.zeros(28, 14, 3).long()
+        action_defense = torch.zeros(28, 3, 10).long()
         my_health = game_state.my_health
         enemy_health = game_state.enemy_health
 

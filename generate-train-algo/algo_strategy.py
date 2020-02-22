@@ -108,7 +108,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.submit_turn()
 
 
-        #return a_att.reshape(28, 3, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 3, 10), a_grads[1].reshape(28, 14, 3)
+        #return a_att.reshape(28, 4, 10), a_def.reshape(28, 14, 3), a_grads[0].reshape(28, 4, 10), a_grads[1].reshape(28, 14, 3)
     def tensor_to_attack_defense(self, game_state, scores_attack, scores_defense):
         attack_id2name = {0: PING,
                    1: EMP,
@@ -126,11 +126,14 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         def attempt_defense(defense_id):
             defense_id = defense_id.item()
-            x = int( math.floor(defense_id / (3*14)))
-            defense_id = defense_id - x * (3*14)
-            y = int(math.floor(defense_id / (3)))
-            defense_id = defense_id - y * 3
+            x = int( math.floor(defense_id / (4*14)))
+            defense_id = defense_id - x * (4*14)
+            y = int(math.floor(defense_id / (4)))
+            defense_id = defense_id - y * 4
             z = defense_id
+            if z == 3:
+                game_state.attempt_upgrade([(x, y)])
+                return
             game_state.attempt_spawn(defense_id2name[z], (x, y))
             gamelib.debug_write('TENSOR_TO_DEFENSE x: %s, y: %s, id: %s...'%(x, y, z))
 
@@ -197,14 +200,14 @@ class AlgoStrategy(gamelib.AlgoCore):
         name2id = {FILTER: 0,
                    ENCRYPTOR : 1,
                    DESTRUCTOR : 2}
-        action_defense = torch.zeros(28, 14, 3).long()
+        action_defense = torch.zeros(28, 14, 4).long()
         for obj in deploy_stack:
             unit_type = obj[0]
-            if unit_type not in name2id:
-                continue
-
             x = obj[1]
             y = obj[2]
+            if unit_type == 'UP':
+                action_defense[x, y, 3] = 1
+                continue
             action_defense[x, y, name2id[unit_type]] = 1
         return action_defense
 
@@ -385,7 +388,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 gamelib.debug_write("All locations: {}".format(self.scored_on_locations))
     
     def game_state_to_tensor(self, game_state):
-        state = torch.zeros(28, 28, 3).long()
+        state = torch.zeros(28, 28, 4).long()
         name2id = {FILTER: 0, 
                    ENCRYPTOR: 1,
                    DESTRUCTOR: 2}
@@ -400,6 +403,8 @@ class AlgoStrategy(gamelib.AlgoCore):
                         name = unit.unit_type
                         assert name in name2id, name
                         state[i, j, name2id[name]] = 1
+                        if unit.upgraded:
+                            state[i, j, 3] = 1
         return state
 
 

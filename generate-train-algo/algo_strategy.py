@@ -150,7 +150,6 @@ class AlgoStrategy(gamelib.AlgoCore):
               
               
         p = random.random()
-        p = random.random()
         if p < 0.8:
             gamelib.debug_write('Using BASELINE Policy')
             self.starter_strategy(game_state)

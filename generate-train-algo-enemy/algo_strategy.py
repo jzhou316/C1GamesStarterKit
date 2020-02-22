@@ -149,7 +149,6 @@ class AlgoStrategy(gamelib.AlgoCore):
                 #####End of bose 4 
               
               
-        
         p = random.random()
         if p < 0.8:
             gamelib.debug_write('Using BASELINE Policy')

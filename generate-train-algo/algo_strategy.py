@@ -215,9 +215,15 @@ class AlgoStrategy(gamelib.AlgoCore):
             attack_id = attack_id - y * 10
             z = attack_id
             if x < 14:
-                game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
+                location = [x, 13-x]
+                path = game_state.find_path_to_edge(location)
+                if path is not None:
+                    game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
             else:
-                game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
+                location = [x, x-14]
+                path = game_state.find_path_to_edge(location)
+                if path is not None:
+                    game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
             gamelib.debug_write('TENSOR_TO_ATTACK x: %s, id: %s, num: %s...'%(x, y, z+1))
 
         while attack_ptr < scores_attack.size(0) or defense_ptr < scores_defense.size(0):
@@ -297,6 +303,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         self.build_defences(game_state)
         # Now build reactive defenses based on where the enemy scored
         self.build_reactive_defense(game_state)
+        game_map = game_state.game_map
 
         # If the turn is less than 5, stall with Scramblers and wait to see enemy's base
         if game_state.turn_number < 5:
@@ -313,14 +320,25 @@ class AlgoStrategy(gamelib.AlgoCore):
                 # Sending more at once is better since attacks can only hit a single ping at a time
                 if game_state.turn_number % 2 == 1:
                     # To simplify we will just check sending them from back left and right
+                    edge_locations = game_map.get_edge_locations(game_map.BOTTOM_LEFT) + game_map.get_edge_locations(game_map.BOTTOM_RIGHT)
                     ping_spawn_location_options = [[13, 0], [14, 0]]
                     best_location = self.least_damage_spawn_location(game_state, ping_spawn_location_options)
                     if best_location is not None:
                         game_state.attempt_spawn(PING, best_location, 1000)
+                    else:
+                        best_location = self.least_damage_spawn_location(game_state, edge_locations)
+                        if best_location is not None:
+                            game_state.attempt_spawn(PING, best_location, 1000)
 
                 # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
                 encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
-                game_state.attempt_spawn(ENCRYPTOR, encryptor_locations)
+                enc_loc = []
+                for location in encryptor_locations:
+                    path = game_state.find_path_to_edge(location)
+                    if path is not None:
+                        enc_loc.append(location)
+                if len(enc_loc) > 0:
+                    game_state.attempt_spawn(ENCRYPTOR, enc_loc)
 
     def build_defences(self, game_state):
         """
@@ -371,7 +389,9 @@ class AlgoStrategy(gamelib.AlgoCore):
             deploy_index = random.randint(0, len(deploy_locations) - 1)
             deploy_location = deploy_locations[deploy_index]
             
-            game_state.attempt_spawn(SCRAMBLER, deploy_location)
+            path = game_state.find_path_to_edge(deploy_location)
+            if path is not None:
+                game_state.attempt_spawn(SCRAMBLER, deploy_location)
             deployed += 1
             if NEED_DUMP and deployed == 10:
                 break
@@ -400,7 +420,10 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         # Now spawn EMPs next to the line
         # By asking attempt_spawn to spawn 1000 units, it will essentially spawn as many as we have resources for
-        game_state.attempt_spawn(EMP, [24, 10], 1000)
+        location = [24, 10]
+        path = game_state.find_path_to_edge(location)
+        if path is not None:
+            game_state.attempt_spawn(EMP, location, 1000)
 
     def least_damage_spawn_location(self, game_state, location_options):
         """

@@ -444,15 +444,17 @@ class AlgoStrategy(gamelib.AlgoCore):
         """
         for location in self.scored_on_locations:
             # Build destructor one space above so that it doesn't block our own edge spawn locations
-            if location[1]+1 > 13:
-                if location[0]+1 < 28:
-                    build_location = [location[0]+1, location[1]]
-                else:
-                    build_location = [location[0]-1, location[1]]
-            else:
-                build_location = [location[0], location[1]+1]
+            #if location[1]+1 > 13:
+            #    if location[0]+1 < 28:
+            #        build_location = [location[0]+1, location[1]]
+            #    else:
+            #        build_location = [location[0]-1, location[1]]
+            #else:
+            #    build_location = [location[0], location[1]+1]
+            build_location = [location[0], min(location[1]+2, 13)]
             if build_location in self.forbidden:
                 continue
+            
             game_state.attempt_spawn(DESTRUCTOR, build_location)
 
     def stall_with_scramblers(self, game_state):

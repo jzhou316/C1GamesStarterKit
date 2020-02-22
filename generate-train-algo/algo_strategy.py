@@ -315,7 +315,8 @@ class AlgoStrategy(gamelib.AlgoCore):
                     # To simplify we will just check sending them from back left and right
                     ping_spawn_location_options = [[13, 0], [14, 0]]
                     best_location = self.least_damage_spawn_location(game_state, ping_spawn_location_options)
-                    game_state.attempt_spawn(PING, best_location, 1000)
+                    if best_location is not None:
+                        game_state.attempt_spawn(PING, best_location, 1000)
 
                 # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
                 encryptor_locations = [[13, 2], [14, 2], [13, 3], [14, 3]]
@@ -412,6 +413,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         for location in location_options:
             path = game_state.find_path_to_edge(location)
             damage = 0
+            if path is None:
+                return None
             for path_location in path:
                 # Get number of enemy destructors that can attack the final location and multiply by destructor damage
                 damage += len(game_state.get_attackers(path_location, 0)) * gamelib.GameUnit(DESTRUCTOR, game_state.config).damage_i

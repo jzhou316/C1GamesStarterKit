@@ -254,12 +254,36 @@ class AlgoStrategy(gamelib.AlgoCore):
                 location = [x, 13-x]
                 path = game_state.find_path_to_edge(location)
                 if path is not None:
-                    game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
+                    flag = True
+                    for path_location in path:
+                        unit = game_state.game_map[path_location[0], path_location[1]]
+                        if unit is None:
+                            continue
+                        if len(unit) == 0:
+                            continue
+                        unit = unit[0]
+                        if unit.player_index == 0:
+                            flag = False
+                            break
+                    if flag:
+                        game_state.attempt_spawn(attack_id2name[y], [x,13-x], z+1)
             else:
                 location = [x, x-14]
                 path = game_state.find_path_to_edge(location)
                 if path is not None:
-                    game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
+                    flag = True
+                    for path_location in path:
+                        unit = game_state.game_map[path_location[0], path_location[1]]
+                        if unit is None:
+                            continue
+                        if len(unit) == 0:
+                            continue
+                        unit = unit[0]
+                        if unit.player_index == 0:
+                            flag = False
+                            break
+                    if flag:
+                        game_state.attempt_spawn(attack_id2name[y], [x,x-14], z+1)
             gamelib.debug_write('TENSOR_TO_ATTACK x: %s, id: %s, num: %s...'%(x, y, z+1))
 
         while attack_ptr < scores_attack.size(0) or defense_ptr < scores_defense.size(0):
@@ -359,7 +383,19 @@ class AlgoStrategy(gamelib.AlgoCore):
                 for location in encryptor_locations:
                     path = game_state.find_path_to_edge(location)
                     if path is not None and location not in self.forbidden:
-                        enc_loc.append(location)
+                        flag = True
+                        for path_location in path:
+                            unit = game_state.game_map[path_location[0], path_location[1]]
+                            if unit is None:
+                                continue
+                            if len(unit) == 0:
+                                continue
+                            unit = unit[0]
+                            if unit.player_index == 0:
+                                flag = False
+                                break
+                        if flag:
+                            enc_loc.append(location)
                 if len(enc_loc) > 0:
                     game_state.attempt_spawn(ENCRYPTOR, enc_loc)
 
@@ -433,7 +469,19 @@ class AlgoStrategy(gamelib.AlgoCore):
             
             path = game_state.find_path_to_edge(deploy_location)
             if path is not None:
-                game_state.attempt_spawn(SCRAMBLER, deploy_location)
+                flag = True
+                for path_location in path:
+                    unit = game_state.game_map[path_location[0], path_location[1]]
+                    if unit is None:
+                        continue
+                    if len(unit) == 0:
+                        continue
+                    unit = unit[0]
+                    if unit.player_index == 0:
+                        flag = False
+                        break
+                if flag:
+                    game_state.attempt_spawn(SCRAMBLER, deploy_location)
             deployed += 1
             if NEED_DUMP and deployed == 10:
                 break
@@ -465,7 +513,19 @@ class AlgoStrategy(gamelib.AlgoCore):
         location = [24, 10]
         path = game_state.find_path_to_edge(location)
         if path is not None:
-            game_state.attempt_spawn(EMP, location, 1000)
+            flag = True
+            for path_location in path:
+                unit = game_state.game_map[path_location[0], path_location[1]]
+                if unit is None:
+                    continue
+                if len(unit) == 0:
+                    continue
+                unit = unit[0]
+                if unit.player_index == 0:
+                    flag = False
+                    break
+            if flag:
+                game_state.attempt_spawn(EMP, location, 1000)
 
     def least_damage_spawn_location(self, game_state, location_options):
         """

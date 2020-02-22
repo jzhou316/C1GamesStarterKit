@@ -137,7 +137,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 filter_locations = [[2, 13], [3, 12],[5, 10], [6, 9],[7, 8], [8, 7],[9, 6], [10, 5],[11, 4], [12,5],[13, 7], [14, 7],[15, 7], [16, 7],[17, 7], [18, 7],[19, 7],[20, 8], [19, 8],[18, 6], [24, 12],[25, 13]]
                 game_state.attempt_spawn(FILTER, filter_locations)
              
-            elif p<0.8.5:
+            elif p<0.85:
                 ######
                 # Bose_4
                 destructor_locations = [[4, 11], [13, 6], [23, 11]]
